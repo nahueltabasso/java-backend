@@ -1,0 +1,139 @@
+{
+	"info": {
+		"_postman_id": "2bf2bdc5-4e06-4252-b7df-7d537096dd7e",
+		"name": "Integrating-Proyect",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "8971706"
+	},
+	"item": [
+		{
+			"name": "Auth-Service",
+			"item": [
+				{
+					"name": "RegisterNewUser",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"auth1\",\n    \"email\": \"auth1@gmail.com\",\n    \"password\": \"PAa1234567\",\n    \"googleUser\": false,\n    \"facebookUser\": false,\n    \"appleUser\": false,\n    \"firstLogin\": true,\n    \"roles\": null,\n    \"userLocked\": false,\n    \"failsAttemps\": 0 \n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8090/api/security/auth/sign-up",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8090",
+							"path": [
+								"api",
+								"security",
+								"auth",
+								"sign-up"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"auth1\",\n    \"password\": \"PAa1234567\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8090/api/security/auth/sign-in",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8090",
+							"path": [
+								"api",
+								"security",
+								"auth",
+								"sign-in"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "RefreshToken",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"refreshToken\": \"4edc54fd-d2ab-4494-9e50-1770c863cf4c\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8090/api/security/auth/refresh-token",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8090",
+							"path": [
+								"api",
+								"security",
+								"auth",
+								"refresh-token"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ForgotPassword",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8090/api/security/password/forgot-password?email=nahueltabasso",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8090",
+							"path": [
+								"api",
+								"security",
+								"password",
+								"forgot-password"
+							],
+							"query": [
+								{
+									"key": "email",
+									"value": "nahueltabasso"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
