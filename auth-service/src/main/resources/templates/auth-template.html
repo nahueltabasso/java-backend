@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Bienvenido!</title>
+</head>
+<body>
+    <h1>Bienvenido</h1>
+    <h3>Gracias por registrarte en la aplicacion!</h3>
+
+    <p>
+        Te damos la bienvenida a esta aplicacion
+        <b th:text="${object.username}"></b>
+
+        <div>
+            Email:
+            <b th:text="${object.emailTo}"></b>
+        </div>
+
+        <div>
+            Username:
+            <b th:text="${object.username}"></b>
+        </div>
+    </p>
+
+    <footer>
+        <div>
+        <span>Derechos reservados © 2023
+            <a href="https://www.linkedin.com/in/tabassonahuel/" target="_blank">Nahuel Tabasso</a>.</span>
+        </div>
+    </footer>
+</body>
+</html>
