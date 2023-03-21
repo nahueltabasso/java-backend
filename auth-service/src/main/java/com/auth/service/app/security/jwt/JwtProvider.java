@@ -7,9 +7,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
 
-import javax.annotation.PostConstruct;
-import java.util.Base64;
-import java.util.Date;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Component
 @Slf4j
@@ -20,10 +19,10 @@ public class JwtProvider {
     @Value("${app.security.jwtExpirationTimeMs}")
     private int jwtExpirationTime;
 
-    @PostConstruct
-    protected void init() {
-        this.jwtSecret = Base64.getEncoder().encodeToString(jwtSecret.getBytes());
-    }
+//    @PostConstruct
+//    protected void init() {
+//        this.jwtSecret = Base64.getEncoder().encodeToString(jwtSecret.getBytes());
+//    }
 
     public String generateJwtToken(Authentication authentication) {
         log.info("Enter to generateJwtToken()");
@@ -31,10 +30,23 @@ public class JwtProvider {
 
         return Jwts.builder()
                 .setSubject(userDetails.getUsername())
+                .setClaims(this.getClaims(userDetails))
                 .setIssuedAt(new Date())
                 .setExpiration(new Date(new Date().getTime() + jwtExpirationTime))
                 .signWith(SignatureAlgorithm.HS512, jwtSecret)
                 .compact();
+    }
+
+    private Map<String, Object> getClaims(UserDetailsImpl userDetails) {
+        Map<String, Object> claims = new HashMap<>();
+        claims.put("id", userDetails.getId());
+        claims.put("username", userDetails.getUsername());
+        claims.put("email", userDetails.getEmail());
+        claims.put("userEnabled", userDetails.isEnabled());
+        List<String> authorities = userDetails.getAuthorities().stream()
+                .map(a -> a.getAuthority()).collect(Collectors.toList());
+        claims.put("authorities", authorities);
+        return claims;
     }
 
     public String generateTokenFromUsername(String username) {
@@ -53,7 +65,7 @@ public class JwtProvider {
             return Jwts.parser()
                     .setSigningKey(jwtSecret)
                     .parseClaimsJws(token)
-                    .getBody().getSubject();
+                    .getBody().get("username", String.class);
         } catch (Exception e) {
             return "invalid token";
         }

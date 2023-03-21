@@ -3,9 +3,9 @@ spring:
     name: auth-service
   # Database config
   datasource:
-    url: jdbc:mysql://localhost:3306/hospital_local?allowPublicKeyRetrieval=true&useSSL=false&serverTimezone=UTC
+    url: jdbc:mysql://localhost:3306/tasks_local?allowPublicKeyRetrieval=true&useSSL=false&serverTimezone=UTC
     username: root
-    password: root123-
+    password: rootpassword #root123-
     driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
     database-platform: org.hibernate.dialect.MySQL8Dialect
@@ -32,7 +32,7 @@ server:
 app:
   security:
     failsAttemps: 3
-    jwtSecret: kxvzvd?@12"3|csaf
+    jwtSecret: kase235mdsgr2
     jwtExpirationTimeMs: 3600000
     jwtRefreshExpirationMs: 86400000
 

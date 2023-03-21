@@ -1,72 +1,72 @@
-package com.apigatewayservice.app.security;
-
-import com.apigatewayservice.app.dto.TokenDTO;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.cloud.gateway.filter.GatewayFilter;
-import org.springframework.cloud.gateway.filter.factory.AbstractGatewayFilterFactory;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.server.reactive.ServerHttpResponse;
-import org.springframework.stereotype.Component;
-import org.springframework.web.reactive.function.client.WebClient;
-import org.springframework.web.server.ServerWebExchange;
-import reactor.core.publisher.Mono;
-
-@Component
-@Slf4j
-public class AuthFilter extends AbstractGatewayFilterFactory<AuthFilter.Config> {
-
-    private WebClient.Builder webClient;
-
-    public AuthFilter(WebClient.Builder webClient) {
-        super(Config.class);
-        this.webClient = webClient;
-    }
-
-    @Override
-    public GatewayFilter apply(Config config) {
-        log.info("Enter to apply()");
-        log.info("Enter to Gateway Service Filter");
-        return (((exchange, chain) -> {
-            if (!exchange.getRequest().getHeaders().containsKey(HttpHeaders.AUTHORIZATION)) {
-                log.error("ERROR: the request does not contain the AUTHORIZATION header");
-                return onError(exchange, HttpStatus.BAD_REQUEST);
-            }
-
-            String tokenHeader =
-                    exchange.getRequest().getHeaders().get(HttpHeaders.AUTHORIZATION).get(0);
-
-            String [] chunks = tokenHeader.split(" ");
-            if (chunks.length != 2 || !chunks[0].equals("Bearer")) {
-                log.error("ERROR: invalid token");
-                return onError(exchange, HttpStatus.BAD_REQUEST);
-            }
-
-            log.info("Request URI = " + exchange.getRequest().getURI());
-            return webClient.build()
-                    .post()
-                    .uri("http://localhost:8091/api/security/auth/validate?token=" + chunks[1])
-                    .header("Authorization", "Bearer " + chunks[1])
-                    .retrieve().bodyToMono(TokenDTO.class)
-                    .map(t -> {
-                        log.info("Token valid");
-                        log.info("Response from auth-service = " + t.getAccessToken());
-                        t.getAccessToken();
-                        exchange.getRequest()
-                                .mutate()
-                                .header("Authorization", t.getAccessToken());
-                        return exchange;
-                    }).flatMap(chain::filter);
-        }));
-
-    }
-
-    public Mono<Void> onError(ServerWebExchange exchange, HttpStatus status) {
-        log.info("Enter to onError()");
-        ServerHttpResponse response = exchange.getResponse();
-        response.setStatusCode(status);
-        return response.setComplete();
-    }
-
-    public static class Config {}
-}
+//package com.apigatewayservice.app.security;
+//
+//import com.apigatewayservice.app.dto.TokenDTO;
+//import lombok.extern.slf4j.Slf4j;
+//import org.springframework.cloud.gateway.filter.GatewayFilter;
+//import org.springframework.cloud.gateway.filter.factory.AbstractGatewayFilterFactory;
+//import org.springframework.http.HttpHeaders;
+//import org.springframework.http.HttpStatus;
+//import org.springframework.http.server.reactive.ServerHttpResponse;
+//import org.springframework.stereotype.Component;
+//import org.springframework.web.reactive.function.client.WebClient;
+//import org.springframework.web.server.ServerWebExchange;
+//import reactor.core.publisher.Mono;
+//
+//@Component
+//@Slf4j
+//public class AuthFilter extends AbstractGatewayFilterFactory<AuthFilter.Config> {
+//
+//    private WebClient.Builder webClient;
+//
+//    public AuthFilter(WebClient.Builder webClient) {
+//        super(Config.class);
+//        this.webClient = webClient;
+//    }
+//
+//    @Override
+//    public GatewayFilter apply(Config config) {
+//        log.info("Enter to apply()");
+//        log.info("Enter to Gateway Service Filter");
+//        return (((exchange, chain) -> {
+//            if (!exchange.getRequest().getHeaders().containsKey(HttpHeaders.AUTHORIZATION)) {
+//                log.error("ERROR: the request does not contain the AUTHORIZATION header");
+//                return onError(exchange, HttpStatus.BAD_REQUEST);
+//            }
+//
+//            String tokenHeader =
+//                    exchange.getRequest().getHeaders().get(HttpHeaders.AUTHORIZATION).get(0);
+//
+//            String [] chunks = tokenHeader.split(" ");
+//            if (chunks.length != 2 || !chunks[0].equals("Bearer")) {
+//                log.error("ERROR: invalid token");
+//                return onError(exchange, HttpStatus.BAD_REQUEST);
+//            }
+//
+//            log.info("Request URI = " + exchange.getRequest().getURI());
+//            return webClient.build()
+//                    .post()
+//                    .uri("http://localhost:8091/api/security/auth/validate?token=" + chunks[1])
+//                    .header("Authorization", "Bearer " + chunks[1])
+//                    .retrieve().bodyToMono(TokenDTO.class)
+//                    .map(t -> {
+//                        log.info("Token valid");
+//                        log.info("Response from auth-service = " + t.getAccessToken());
+//                        t.getAccessToken();
+//                        exchange.getRequest()
+//                                .mutate()
+//                                .header("Authorization", t.getAccessToken());
+//                        return exchange;
+//                    }).flatMap(chain::filter);
+//        }));
+//
+//    }
+//
+//    public Mono<Void> onError(ServerWebExchange exchange, HttpStatus status) {
+//        log.info("Enter to onError()");
+//        ServerHttpResponse response = exchange.getResponse();
+//        response.setStatusCode(status);
+//        return response.setComplete();
+//    }
+//
+//    public static class Config {}
+//}
