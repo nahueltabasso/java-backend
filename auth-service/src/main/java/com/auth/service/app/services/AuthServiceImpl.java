@@ -23,6 +23,8 @@ import org.springframework.context.MessageSource;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -53,6 +55,8 @@ public class AuthServiceImpl extends CommonServiceImpl<UserDTO, User> implements
     private RefreshTokenService refreshTokenService;
     @Autowired
     private EmailService emailService;
+    @Autowired
+    private UserDetailsService userDetailsService;
     @Value("${app.security.failsAttemps}")
     private int failsAttemps;
 
@@ -274,6 +278,15 @@ public class AuthServiceImpl extends CommonServiceImpl<UserDTO, User> implements
             return null;
         return LoginResponseDTO.builder()
                 .accessToken(token).build();
+    }
+
+    @Override
+    public UserDetails getCurrentUserDetails(String token) {
+        log.info("Enter to getCurrentUserDetails()");
+        String username = jwtProvider.getUsernameFromToken(token);
+        log.info("Username = " + username);
+        UserDetails userDetails = userDetailsService.loadUserByUsername(username);
+        return userDetails;
     }
 
     private Boolean isRoleValid(RoleDTO roleDTO) {

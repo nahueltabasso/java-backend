@@ -5,6 +5,7 @@ import com.auth.service.app.models.dto.MessageResponseDTO;
 import com.auth.service.app.models.dto.UserDTO;
 import nrt.common.microservice.services.CommonService;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UserDetails;
 
 public interface AuthService extends CommonService<UserDTO> {
 
@@ -13,4 +14,5 @@ public interface AuthService extends CommonService<UserDTO> {
     public Boolean checkUserLocked(String username);
     public void updateFailsAttemps(String username);
     public LoginResponseDTO validate(String token);
+    public UserDetails getCurrentUserDetails(String token);
 }

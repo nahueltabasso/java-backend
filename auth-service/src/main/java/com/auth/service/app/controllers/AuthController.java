@@ -118,4 +118,10 @@ public class AuthController extends CommonController<UserDTO, UserDTO> {
                     return ResponseEntity.ok(new RefreshTokenResponseDTO(accessToken, token, "Bearer"));
                 }).orElseThrow(() -> new CommonBusinessException(ErrorCode.REFRESH_TOKEN_NOT_FOUND));
     }
+
+    @GetMapping("/get-user-details")
+    public ResponseEntity<?> getUserDetails(@RequestParam("token") String token) {
+        log.info("Enter to getUserDetails()");
+        return ResponseEntity.ok(authService.getCurrentUserDetails(token));
+    }
 }
