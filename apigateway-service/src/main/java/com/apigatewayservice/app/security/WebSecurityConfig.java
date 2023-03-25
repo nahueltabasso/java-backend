@@ -2,12 +2,13 @@ package com.apigatewayservice.app.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
-import org.springframework.http.HttpMethod;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.reactive.EnableWebFluxSecurity;
 import org.springframework.security.config.web.server.SecurityWebFiltersOrder;
 import org.springframework.security.config.web.server.ServerHttpSecurity;
 import org.springframework.security.web.server.SecurityWebFilterChain;
 
+@Configuration
 @EnableWebFluxSecurity
 public class WebSecurityConfig  {
 
@@ -18,8 +19,7 @@ public class WebSecurityConfig  {
         return httpSecurity.authorizeExchange()
                 .pathMatchers("/api/security/auth/**").permitAll()
                 .pathMatchers("/api/security/password/**").permitAll()
-                .pathMatchers(HttpMethod.GET, "/api/users/user-profile/*").hasRole("USER")
-                .anyExchange().authenticated()
+                .pathMatchers("/api/users/user-profile/**").authenticated()
                 .and().addFilterAt(jwtAuthenticationFilter, SecurityWebFiltersOrder.AUTHENTICATION)
                 .csrf().disable()
                 .build();
