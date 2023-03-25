@@ -23,16 +23,12 @@ import org.springframework.context.MessageSource;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Locale;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -281,12 +277,19 @@ public class AuthServiceImpl extends CommonServiceImpl<UserDTO, User> implements
     }
 
     @Override
-    public UserDetails getCurrentUserDetails(String token) {
+    public Map<String, Object> getCurrentUserDetails(String token) {
         log.info("Enter to getCurrentUserDetails()");
         String username = jwtProvider.getUsernameFromToken(token);
         log.info("Username = " + username);
-        UserDetails userDetails = userDetailsService.loadUserByUsername(username);
-        return userDetails;
+        UserDetailsImpl userDetails = (UserDetailsImpl) userDetailsService.loadUserByUsername(username);
+        Map<String, Object> result = new HashMap<>();
+        result.put("id", userDetails.getId());
+        result.put("email", userDetails.getEmail());
+        result.put("username", userDetails.getUsername());
+        List<String> authorities = userDetails.getAuthorities().stream()
+                .map(a -> a.getAuthority()).collect(Collectors.toList());
+        result.put("authorities", authorities);
+        return result;
     }
 
     private Boolean isRoleValid(RoleDTO roleDTO) {
