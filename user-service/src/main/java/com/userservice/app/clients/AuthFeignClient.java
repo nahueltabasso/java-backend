@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.Map;
 
-@FeignClient(name = "auth-service", url = "${auth.service.url:8091}")
+@FeignClient(name = "auth-service", url = "${auth.service.uri:8091}")
 public interface AuthFeignClient {
 
     @GetMapping("/api/security/auth/get-user-details")
