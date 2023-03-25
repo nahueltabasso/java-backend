@@ -1,5 +1,14 @@
 spring:
   application:
     name: user-service
+    security:
+      user:
+        password: 12121
 server:
   port: 8092
+
+auth:
+  service:
+    url: http://localhost:8091
+
+
