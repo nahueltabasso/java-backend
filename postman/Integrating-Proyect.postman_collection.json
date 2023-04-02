@@ -47,7 +47,14 @@
 					"name": "Login",
 					"request": {
 						"method": "POST",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "jfdskfjsdkfdsf",
+								"type": "text",
+								"disabled": true
+							}
+						],
 						"body": {
 							"mode": "raw",
 							"raw": "{\n    \"username\": \"auth1\",\n    \"password\": \"PAa1234567\"\n}",
@@ -111,7 +118,7 @@
 						"method": "POST",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8090/api/security/password/forgot-password?email=nahueltabasso",
+							"raw": "http://localhost:8090/api/security/password/forgot-password?email=auth1@gmail.com",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -126,8 +133,240 @@
 							"query": [
 								{
 									"key": "email",
-									"value": "nahueltabasso"
+									"value": "auth1@gmail.com"
 								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DeleteUser",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJ1c2VyRW5hYmxlZCI6dHJ1ZSwiaWQiOjYsImV4cCI6MTY4MDQ1NjIxNCwiaWF0IjoxNjgwNDUyNjE0LCJlbWFpbCI6Im5haHVlbHRhYmFzc29AZ21haWwuY29tIiwiYXV0aG9yaXRpZXMiOlsiUk9MRV9VU0VSIl0sInVzZXJuYW1lIjoiYXV0aDEifQ.sj5DxhzDcpVvmIy6sLMXL5jLXOTYOD336xLewHwZGj4RGfqMGUrCskRiq9ERcxK0060QSWAXgwiz1eoDUAEbVg",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8091/api/security/user/6",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8091",
+							"path": [
+								"api",
+								"security",
+								"user",
+								"6"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "User-Service",
+			"item": [
+				{
+					"name": "SaveNewProfile",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJ1c2VyRW5hYmxlZCI6dHJ1ZSwiaWQiOjEwLCJleHAiOjE2ODA0NjM3NTksImlhdCI6MTY4MDQ2MDE1OSwiZW1haWwiOiJuYWh1ZWx0YWJhc3NvQGdtYWlsLmNvbSIsImF1dGhvcml0aWVzIjpbIlJPTEVfVVNFUiJdLCJ1c2VybmFtZSI6ImF1dGgxIn0.HY8m-syTROfqOn94dkdvx9zh81PPQ8pbhTL21lgXgf_coe6KOQdVHxoO7tu3c7gNwrWxCFGsmKmfBj3IcDg_GA",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "profilePhoto",
+									"contentType": "multipart/form-data",
+									"type": "file",
+									"src": "/Users/nahueltabasso/Downloads/IMG_0449.PNG"
+								},
+								{
+									"key": "jsonBody",
+									"value": "{\n   \"firstName\":\"First Name Test\",\n   \"lastName\":\"Last Name Test\",\n   \"email\":\"auth1@gmail.com\",\n   \"phoneNumber\":null,\n   \"birthDate\":\"1990-01-01 00:00:00\",\n   \"verifiedProfile\":false,\n   \"studies\":null,\n   \"biography\":\"Biography test\",\n   \"userId\":10,\n   \"activeProfile\":true\n}",
+									"contentType": "application/json",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8090/api/users/user-profile/add",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8090",
+							"path": [
+								"api",
+								"users",
+								"user-profile",
+								"add"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UpdateProfile",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJ1c2VyRW5hYmxlZCI6dHJ1ZSwiaWQiOjYsImV4cCI6MTY4MDIyNjkwNCwiaWF0IjoxNjgwMjIzMzA0LCJlbWFpbCI6Im5haHVlbHRhYmFzc29AZ21haWwuY29tIiwiYXV0aG9yaXRpZXMiOlsiUk9MRV9VU0VSIl0sInVzZXJuYW1lIjoiYXV0aDEifQ.M5kRcqyB8EJcsQGX1r07i5E9o0q66Rz2p25pMnVjzgtC5SXaSQYIMYaPmlEy9Rn6YRa3mlC8audnWvKrMKQChg",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "profilePhoto",
+									"contentType": "multipart/form-data",
+									"type": "file",
+									"src": "/Users/nahueltabasso/Downloads/IMG_0449.PNG"
+								},
+								{
+									"key": "jsonBody",
+									"value": "{\n   \"id\":10,\n   \"firstName\":\"First Name Test\",\n   \"lastName\":\"Last Name Test\",\n   \"email\":\"auth1@gmail.com\",\n   \"phoneNumber\":\"12324546\",\n   \"birthDate\":\"1990-01-01 00:00:00\",\n   \"verifiedProfile\":false,\n   \"studies\":null,\n   \"biography\":\"Biography test\",\n   \"userId\":6,\n   \"activeProfile\":false\n}",
+									"contentType": "application/json",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8090/api/users/user-profile/update-profile/10",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8090",
+							"path": [
+								"api",
+								"users",
+								"user-profile",
+								"update-profile",
+								"10"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetAllProfiles",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJ1c2VyRW5hYmxlZCI6dHJ1ZSwiaWQiOjEwLCJleHAiOjE2ODA0NjM3NTksImlhdCI6MTY4MDQ2MDE1OSwiZW1haWwiOiJuYWh1ZWx0YWJhc3NvQGdtYWlsLmNvbSIsImF1dGhvcml0aWVzIjpbIlJPTEVfVVNFUiJdLCJ1c2VybmFtZSI6ImF1dGgxIn0.HY8m-syTROfqOn94dkdvx9zh81PPQ8pbhTL21lgXgf_coe6KOQdVHxoO7tu3c7gNwrWxCFGsmKmfBj3IcDg_GA",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8090/api/users/user-profile/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8090",
+							"path": [
+								"api",
+								"users",
+								"user-profile",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetProfileById",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJ1c2VyRW5hYmxlZCI6dHJ1ZSwiaWQiOjEwLCJleHAiOjE2ODA0NjM3NTksImlhdCI6MTY4MDQ2MDE1OSwiZW1haWwiOiJuYWh1ZWx0YWJhc3NvQGdtYWlsLmNvbSIsImF1dGhvcml0aWVzIjpbIlJPTEVfVVNFUiJdLCJ1c2VybmFtZSI6ImF1dGgxIn0.HY8m-syTROfqOn94dkdvx9zh81PPQ8pbhTL21lgXgf_coe6KOQdVHxoO7tu3c7gNwrWxCFGsmKmfBj3IcDg_GA",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8090/api/users/user-profile/15",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8090",
+							"path": [
+								"api",
+								"users",
+								"user-profile",
+								"15"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DeleteProfile",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJ1c2VyRW5hYmxlZCI6dHJ1ZSwiaWQiOjEwLCJleHAiOjE2ODA0NjM3NTksImlhdCI6MTY4MDQ2MDE1OSwiZW1haWwiOiJuYWh1ZWx0YWJhc3NvQGdtYWlsLmNvbSIsImF1dGhvcml0aWVzIjpbIlJPTEVfVVNFUiJdLCJ1c2VybmFtZSI6ImF1dGgxIn0.HY8m-syTROfqOn94dkdvx9zh81PPQ8pbhTL21lgXgf_coe6KOQdVHxoO7tu3c7gNwrWxCFGsmKmfBj3IcDg_GA",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8090/api/users/user-profile/15",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8090",
+							"path": [
+								"api",
+								"users",
+								"user-profile",
+								"15"
 							]
 						}
 					},

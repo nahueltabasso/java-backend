@@ -45,6 +45,7 @@ public class RequestFilter extends OncePerRequestFilter {
                 authorities.add(new SimpleGrantedAuthority(a));
             });
             commonUserDetails.setAuthorities(authorities);
+            commonUserDetails.setToken(token);
             SecurityContextHolder.getContext().setAuthentication(
                     new UsernamePasswordAuthenticationToken(commonUserDetails, null, authorities));
 

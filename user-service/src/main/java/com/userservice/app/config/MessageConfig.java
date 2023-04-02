@@ -1,4 +1,4 @@
-package com.auth.service.app.config;
+package com.userservice.app.config;
 
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;

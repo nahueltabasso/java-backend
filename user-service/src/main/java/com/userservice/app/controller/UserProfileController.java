@@ -1,16 +1,36 @@
 package com.userservice.app.controller;
 
+import com.userservice.app.error.ErrorCode;
+import com.userservice.app.models.dto.UserProfileDTO;
+import com.userservice.app.models.dto.UserProfileFilterDTO;
+import com.userservice.app.services.UserProfileService;
+import lombok.extern.slf4j.Slf4j;
+import nrt.common.microservice.controllers.CommonController;
+import nrt.common.microservice.exceptions.CommonBusinessException;
 import nrt.common.microservice.security.dto.CommonUserDetails;
 import nrt.common.microservice.security.session.AppSessionUser;
+import nrt.common.microservice.services.CommonService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestHeader;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 @RestController
 @RequestMapping("/api/users/user-profile")
-public class UserProfileController {
+@Slf4j
+public class UserProfileController extends CommonController<UserProfileFilterDTO, UserProfileDTO> {
+
+    @Autowired
+    private UserProfileService userProfileService;
+
+    @Override
+    protected CommonService getCommonService() {
+        return this.userProfileService;
+    }
 
     @PreAuthorize("hasRole('ROLE_USER')")
     @GetMapping("/message-ok")
@@ -18,4 +38,51 @@ public class UserProfileController {
         CommonUserDetails commonUserDetails = AppSessionUser.getCurrentAppUser();
         return "oK";
     }
+
+    @PreAuthorize("hasRole('ROLE_USER')")
+    @PostMapping("/add")
+    public ResponseEntity<?> addProfile(@Validated @RequestPart("jsonBody") UserProfileDTO userProfileDTO,
+                                        BindingResult bindingResult, @RequestPart("profilePhoto") MultipartFile file) {
+        log.info("Enter to addProfile");
+
+        if (bindingResult.hasErrors()) {
+            return this.validateBody(bindingResult);
+        }
+        if (file.isEmpty()) {
+            throw new CommonBusinessException(ErrorCode.FILE_NOT_NULL);
+        }
+        log.info("Passes body request validations");
+        log.info("Content-Type of request -> " + file.getContentType());
+        log.info("Filename -> " + file.getOriginalFilename());
+
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body(userProfileService.saveNewProfile(userProfileDTO, file));
+    }
+
+    @PreAuthorize("hasRole('ROLE_USER')")
+    @PutMapping("/update-profile/{id}")
+    public ResponseEntity<?> updateProfile(@Validated @RequestPart("jsonBody") UserProfileDTO userProfileDTO,
+                                           BindingResult bindingResult, @RequestPart("profilePhoto") MultipartFile file,
+                                           @PathVariable Long id) {
+        log.info("Enter to updateProfile()");
+
+        if (bindingResult.hasErrors()) {
+            return this.validateBody(bindingResult);
+        }
+        CommonUserDetails userDetails = AppSessionUser.getCurrentAppUser();
+        log.info("Passes body request validation");
+        log.info("User -> " + userDetails.getUsername());
+
+        UserProfileDTO userProfileDTOResponse = userProfileService.updateProfile(id, userProfileDTO, file);
+        return ResponseEntity.status(HttpStatus.CREATED).body(userProfileDTOResponse);
+    }
+
+    @PreAuthorize("hasRole('ROLE_USER')")
+    @PostMapping("/disabled/{id}")
+    public ResponseEntity<?> disabledProfile(@PathVariable Long id) {
+        log.info("Enter to disabledProfile()");
+        userProfileService.disabledUserProfile(id);
+        return ResponseEntity.ok().build();
+    }
+
 }
