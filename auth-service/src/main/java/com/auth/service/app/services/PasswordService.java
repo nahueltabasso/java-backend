@@ -6,4 +6,5 @@ public interface PasswordService {
 
     public void requestPasswordChange(String email);
     public void resetPassword(PasswordRequestDTO dto);
+    public void deleteByUserId(Long userId);
 }

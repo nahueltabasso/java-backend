@@ -107,6 +107,12 @@ public class PasswordServiceImpl implements PasswordService {
         userRepository.save(userDb);
     }
 
+    @Override
+    public void deleteByUserId(Long userId) {
+        log.info("Enter to deleteByUserId()");
+        passwordResetRepository.deleteByUserId(userId);
+    }
+
     private String getCode() {
         Random random = new Random();
         String code = "";

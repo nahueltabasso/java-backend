@@ -22,7 +22,7 @@ public class PasswordReset extends CommonEntity {
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
-    @Column(name = "codigo", unique = true, nullable = false)
+    @Column(name = "code", unique = true, nullable = false)
     private String code;
     @Column(name = "expiry_date")
     private LocalDateTime expiryDate;

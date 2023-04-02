@@ -64,3 +64,38 @@ create table auth_user_role
     constraint FK_auth_role
         foreign key (role_id) references auth_roles (id)
 );
+
+-- TABLE auth_refresh_tokens
+create table auth_refresh_tokens
+(
+    id          bigint auto_increment
+        primary key,
+    expiry_date datetime(6)  not null,
+    token       varchar(255) not null,
+    user_id     bigint       null,
+    constraint UK_token
+        unique (token),
+    constraint FK_auth_user
+        foreign key (user_id) references auth_users (id)
+);
+
+-- TABLE auth_password_reset
+create table auth_password_reset
+(
+    id                   bigint auto_increment
+        primary key,
+    creationdatetime     datetime(6)  null,
+    creationuser         varchar(255) null,
+    deleted              bit          null,
+    modificationdatetime datetime(6)  null,
+    modificationuser     varchar(255) null,
+    version              int          null,
+    code               varchar(255) not null,
+    expiry_date          datetime(6)  null,
+    user_id              bigint       null,
+    constraint UK_code
+        unique (code),
+    constraint FK_auth_user
+        foreign key (user_id) references auth_users (id)
+);
+
