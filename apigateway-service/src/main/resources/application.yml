@@ -32,34 +32,31 @@ spring:
 
 resilience4j:
   circuitbreaker:
-    configs:
-      auth-circuitbreaker-config:
+    instances:
+      authCircuitBreaker:
         register-health-indicator: true
         failure-rate-threshold: 50
-        sliding-window-size: 10
-        sliding-window-type: COUNT_BASED
-        minimum-number-of-calls: 5
-        wait-duration-in-open-state: 50000
-        slow-call-duration-threshold: 50000
-        permitted-number-of-calls-in-half-open-state: 10
-
-      user-circuitbreaker-config:
-        register-health-indicator: true
-        failure-rate-threshold: 5
         sliding-window-size: 10
         sliding-window-type: COUNT_BASED
         minimum-number-of-calls: 5
         wait-duration-in-open-state: 5000
         slow-call-duration-threshold: 5000
         permitted-number-of-calls-in-half-open-state: 10
-  timeout:
-    configs:
-      myTimeoutConfig:
-        timeout-duration: 10000ms
-#    instances:
-#      myCircuitBreaker:
-#        timeoutDuration: 10s
-#        timeoutEnabled: true
+      userCircuitBreaker:
+        register-health-indicator: true
+        failure-rate-threshold: 50
+        sliding-window-size: 10
+        sliding-window-type: COUNT_BASED
+        minimum-number-of-calls: 5
+        wait-duration-in-open-state: 5000
+        slow-call-duration-threshold: 5000
+        permitted-number-of-calls-in-half-open-state: 10
+  timelimiter:
+    instances:
+      authCircuitBreaker:
+        timeoutDuration: 5s
+      userCircuitBreaker:
+        timeoutDuration: 10s
 
 app:
   security:
