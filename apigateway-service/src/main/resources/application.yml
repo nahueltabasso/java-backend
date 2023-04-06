@@ -15,19 +15,51 @@ spring:
             - Path=/api/users/**
           filters:
             - BeforeRedirectionFilter
+            - name: CircuitBreaker
+              args:
+                name: userCircuitBreaker
+                fallbackUri: forward:/fallback/user-service
 
         - id: auth-service
           uri: http://localhost:8091
           predicates:
             - Path=/api/security/**
+          filters:
+            - name: CircuitBreaker
+              args:
+                name: authCircuitBreaker
+                fallbackUri: forward:/fallback/auth-service
 
-#        - id: test-architecture
-#          uri: http://localhost:8080
-#          predicates:
-#            - Path=/api/test/**
-#          filters:
-#            - StripPrefix=2
+resilience4j:
+  circuitbreaker:
+    configs:
+      auth-circuitbreaker-config:
+        register-health-indicator: true
+        failure-rate-threshold: 50
+        sliding-window-size: 10
+        sliding-window-type: COUNT_BASED
+        minimum-number-of-calls: 5
+        wait-duration-in-open-state: 50000
+        slow-call-duration-threshold: 50000
+        permitted-number-of-calls-in-half-open-state: 10
 
+      user-circuitbreaker-config:
+        register-health-indicator: true
+        failure-rate-threshold: 5
+        sliding-window-size: 10
+        sliding-window-type: COUNT_BASED
+        minimum-number-of-calls: 5
+        wait-duration-in-open-state: 5000
+        slow-call-duration-threshold: 5000
+        permitted-number-of-calls-in-half-open-state: 10
+  timeout:
+    configs:
+      myTimeoutConfig:
+        timeout-duration: 10000ms
+#    instances:
+#      myCircuitBreaker:
+#        timeoutDuration: 10s
+#        timeoutEnabled: true
 
 app:
   security:

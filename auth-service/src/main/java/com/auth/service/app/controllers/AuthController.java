@@ -124,4 +124,5 @@ public class AuthController extends CommonController<UserDTO, UserDTO> {
         log.info("Enter to getUserDetails()");
         return ResponseEntity.ok(authService.getCurrentUserDetails(token));
     }
+
 }
