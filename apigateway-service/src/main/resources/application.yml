@@ -39,8 +39,8 @@ resilience4j:
         sliding-window-size: 10
         sliding-window-type: COUNT_BASED
         minimum-number-of-calls: 5
-        wait-duration-in-open-state: 5000
-        slow-call-duration-threshold: 5000
+        wait-duration-in-open-state: 25000
+        slow-call-duration-threshold: 30000
         permitted-number-of-calls-in-half-open-state: 10
       userCircuitBreaker:
         registerHealthIndicator: true
@@ -48,8 +48,8 @@ resilience4j:
         sliding-window-size: 10
         sliding-window-type: COUNT_BASED
         minimum-number-of-calls: 5
-        wait-duration-in-open-state: 5000
-        slow-call-duration-threshold: 5000
+        wait-duration-in-open-state: 25000
+        slow-call-duration-threshold: 30000
         permitted-number-of-calls-in-half-open-state: 10
   timelimiter:
     instances:
