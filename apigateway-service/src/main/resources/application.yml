@@ -34,7 +34,7 @@ resilience4j:
   circuitbreaker:
     instances:
       authCircuitBreaker:
-        register-health-indicator: true
+        registerHealthIndicator: true
         failure-rate-threshold: 50
         sliding-window-size: 10
         sliding-window-type: COUNT_BASED
@@ -43,7 +43,7 @@ resilience4j:
         slow-call-duration-threshold: 5000
         permitted-number-of-calls-in-half-open-state: 10
       userCircuitBreaker:
-        register-health-indicator: true
+        registerHealthIndicator: true
         failure-rate-threshold: 50
         sliding-window-size: 10
         sliding-window-type: COUNT_BASED
@@ -57,6 +57,11 @@ resilience4j:
         timeoutDuration: 5s
       userCircuitBreaker:
         timeoutDuration: 10s
+
+logging:
+  level:
+    org.springframework.cloud.gateway: DEBUG
+    io.github.resilience4j: DEBUG
 
 app:
   security:

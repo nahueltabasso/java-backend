@@ -1,20 +1,41 @@
 package com.apigatewayservice.app.controller;
 
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Mono;
 
-@Controller
+import java.util.HashMap;
+import java.util.Map;
+
+@RestController
 public class FallbackController {
 
-    @GetMapping("/fallback/auth-service")
-    public Mono<String> authServiceFallback() {
-        return Mono.just("Auth Service not available!");
+    @RequestMapping (value = "/fallback/auth-service",
+            method = {RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT, RequestMethod.DELETE})
+    @ResponseBody
+    public Mono<ResponseEntity<Map<String, String>>>  authServiceFallback() {
+        Map<String, String> map = new HashMap<>();
+        map.put("httpStatus", HttpStatus.SERVICE_UNAVAILABLE.value() + "");
+        map.put("type", "error");
+        map.put("message", "Auth Service not available!");
+        return Mono.just(ResponseEntity.status(HttpStatus.SERVICE_UNAVAILABLE)
+                .contentType(MediaType.APPLICATION_JSON)
+                .body(map));
     }
 
-    @GetMapping("/fallback/user-service")
-    public Mono<String> userServiceFallback() {
-        return Mono.just("User Service not available!");
+    @RequestMapping (value = "/fallback/user-service",
+            method = {RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT, RequestMethod.DELETE})
+    @ResponseBody
+    public Mono<ResponseEntity<Map<String, String>>> userServiceFallback() {
+        Map<String, String> map = new HashMap<>();
+        map.put("httpStatus", HttpStatus.SERVICE_UNAVAILABLE.value() + "");
+        map.put("type", "error");
+        map.put("message", "User Service not available!");
+        return Mono.just(ResponseEntity.status(HttpStatus.SERVICE_UNAVAILABLE)
+                .contentType(MediaType.APPLICATION_JSON)
+                .body(map));
     }
 
 }
