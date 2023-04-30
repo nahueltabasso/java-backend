@@ -36,3 +36,4 @@ build/
 apigateway-service/.env
 auth-service/.env
 user-service/.env
+
