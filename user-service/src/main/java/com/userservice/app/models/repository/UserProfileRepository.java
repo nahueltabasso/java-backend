@@ -10,4 +10,6 @@ public interface UserProfileRepository extends CommonEntityRepository<UserProfil
 
     @Query(value = "select email from auth_users where username = ?1", nativeQuery = true)
     public String findEmailUserByUsername(String username);
+
+    public UserProfile findByEmail(String email);
 }

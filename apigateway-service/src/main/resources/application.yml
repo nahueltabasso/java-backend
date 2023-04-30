@@ -1,5 +1,5 @@
 server:
-  port: 8090
+  port: ${PORT}
 
 spring:
   application:
@@ -10,7 +10,7 @@ spring:
         - LoggingGlobalFilter
       routes:
         - id: user-service
-          uri: http://localhost:8092
+          uri: ${USER_SERVICE_URI}
           predicates:
             - Path=/api/users/**
           filters:
@@ -21,7 +21,7 @@ spring:
                 fallbackUri: forward:/fallback/user-service
 
         - id: auth-service
-          uri: http://localhost:8091
+          uri: ${AUTH_SERVICE_URI}
           predicates:
             - Path=/api/security/**
           filters:
@@ -56,8 +56,8 @@ resilience4j:
       authCircuitBreaker:
         timeoutDuration: 5s
       userCircuitBreaker:
-        timeoutDuration: 10s
-
+#        timeoutDuration: 10s
+        timeoutDuration: 30s
 logging:
   level:
     org.springframework.cloud.gateway: DEBUG
@@ -65,4 +65,4 @@ logging:
 
 app:
   security:
-    jwtSecret: kase235mdsgr2
+    jwtSecret: ${JWT_SECRET}

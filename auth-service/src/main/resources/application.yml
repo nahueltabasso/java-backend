@@ -3,9 +3,9 @@ spring:
     name: auth-service
   # Database config
   datasource:
-    url: jdbc:mysql://localhost:3306/hospital_local?allowPublicKeyRetrieval=true&useSSL=false&serverTimezone=UTC
-    username: root
-    password: root123-
+    url: jdbc:mysql://${MYSQL_DB_HOST}/${MYSQL_DB_NAME}?allowPublicKeyRetrieval=true&useSSL=false&serverTimezone=UTC
+    username: ${MYSQL_DB_USER}
+    password: ${MYSQL_DB_PASSWORD}
     driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
     database-platform: org.hibernate.dialect.MySQL8Dialect
@@ -14,10 +14,10 @@ spring:
   # Configuration of Spring Email
   mail:
     host: smtp.gmail.com
-    port: 587
+    port: ${MAIL_PORT}
     protocol: smtp
-    username: ingresoegresoapprosario@gmail.com
-    password: motsweexznlrixld
+    username: ${MAIL_USERNAME}
+    password: ${MAIL_PASSWORD}
     properties:
       mail:
         smtp:
@@ -27,12 +27,12 @@ spring:
           auth: true
 
 server:
-  port: 8091
+  port: ${PORT}
 
 app:
   security:
     failsAttemps: 3
-    jwtSecret: kase235mdsgr2
+    jwtSecret: ${JWT_SECRET}
     jwtExpirationTimeMs: 3600000
     jwtRefreshExpirationMs: 86400000
 

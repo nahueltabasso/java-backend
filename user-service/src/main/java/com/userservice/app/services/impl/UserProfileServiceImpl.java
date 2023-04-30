@@ -6,17 +6,25 @@ import com.userservice.app.models.dto.UserProfileDTO;
 import com.userservice.app.models.entity.UserProfile;
 import com.userservice.app.models.repository.UserProfileRepository;
 import com.userservice.app.services.UserProfileService;
+import helpers.CloudinaryHelper;
 import lombok.extern.slf4j.Slf4j;
 import nrt.common.microservice.exceptions.CommonBusinessException;
 import nrt.common.microservice.exceptions.ResourceNotFoundException;
 import nrt.common.microservice.models.repository.CommonEntityRepository;
 import nrt.common.microservice.security.dto.CommonUserDetails;
 import nrt.common.microservice.security.session.AppSessionUser;
+import nrt.common.microservice.helpers.FileHelper;
 import nrt.common.microservice.services.impl.CommonServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.env.Environment;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
+
+import java.io.File;
+import java.util.HashMap;
+import java.util.Map;
 
 @Service
 @Slf4j
@@ -26,6 +34,17 @@ public class UserProfileServiceImpl extends CommonServiceImpl<UserProfileDTO, Us
     private UserProfileRepository userProfileRepository;
     @Autowired
     private AuthFeignClient authFeignClient;
+    @Autowired
+    private FileHelper fileHelper;
+    @Autowired
+    private CloudinaryHelper cloudinaryHelper;
+    @Autowired
+    private Environment environment;
+    @Value("${cloudinary.active}")
+    private Boolean saveInCDN;
+    @Value("${cloudinary.host}")
+    private String cloudinaryHost;
+
 
     @Override
     protected CommonEntityRepository<UserProfile> getCommonRepository() {
@@ -89,8 +108,22 @@ public class UserProfileServiceImpl extends CommonServiceImpl<UserProfileDTO, Us
         if (email.isEmpty() || !email.equalsIgnoreCase(dto.getEmail())) {
             throw new CommonBusinessException(ErrorCode.EMAIL_NOT_MATCH_USER_EMAIL);
         }
+
+        UserProfile userProfileExist = userProfileRepository.findByEmail(email);
+        if (userProfileExist != null) {
+            throw new CommonBusinessException(ErrorCode.EXIST_PROFILE_USER);
+        }
+
         // TODO: Save the profile photo in a directory or cloudinary
-        dto.setProfilePhoto(profilePhoto.getOriginalFilename());
+        if (saveInCDN) {
+            // TODO: call the method to save a file in cloudinary
+            String imageUrl = saveInCloudinary(profilePhoto);
+            imageUrl = getImagePathWithCloudinaryTransformations(imageUrl);
+            dto.setProfilePhoto(imageUrl);
+        } else {
+            String directory = environment.getProperty("paths.common-image-directory.location");
+            dto.setProfilePhoto(fileHelper.saveImageInDirectory(profilePhoto, directory));
+        }
         // TODO: Transform the dto object to entity object and persist in database
         UserProfile userProfile = dtoToEntity(dto);
         userProfile = userProfileRepository.save(userProfile);
@@ -109,7 +142,15 @@ public class UserProfileServiceImpl extends CommonServiceImpl<UserProfileDTO, Us
 
         if (!profilePhoto.isEmpty()) {
             // TODO: Save the new profile photo in a directory or cloudinary
-            dto.setProfilePhoto(profilePhoto.getOriginalFilename());
+            if (saveInCDN) {
+                // TODO: call the method to save a file in cloudinary
+                String imageUrl = saveInCloudinary(profilePhoto);
+                imageUrl = getImagePathWithCloudinaryTransformations(imageUrl);
+                dto.setProfilePhoto(imageUrl);
+            } else {
+                String directory = environment.getProperty("paths.common-image-directory.location");
+                dto.setProfilePhoto(fileHelper.saveImageInDirectory(profilePhoto, directory));
+            }
         }
 
         userProfile.setId(dto.getId());
@@ -136,6 +177,20 @@ public class UserProfileServiceImpl extends CommonServiceImpl<UserProfileDTO, Us
                 .orElseThrow(() -> new ResourceNotFoundException(ErrorCode.NOT_FOUND_USER_PROFILE));
         log.info("Profile exists");
 
+//        if (userProfile.getProfilePhoto().startsWith(cloudinaryHost)) {
+//            String result = cloudinaryHelper.destroyImage(userProfile.getProfilePhoto());
+//            if (!result.equalsIgnoreCase("200"))
+//                throw new CommonBusinessException(ErrorCode.ERROR_WITH_CLOUDINARY);
+//        }
+//        else {
+//            if (!fileHelper.deleteFileByPath(userProfile.getProfilePhoto())) {
+//                log.error("Can not delete file");
+//                throw new CommonBusinessException(ErrorCode.CANNOT_DELETE_FILE);
+//            }
+//        }
+        deleteProfilePhoto(userProfile);
+        log.info("Delete file in " + userProfile.getProfilePhoto());
+
         userProfileRepository.deleteById(id);
         log.info("Deleted profile for user with email -> " + userProfile.getEmail());
         log.info("Deleted profile for user with username -> " + AppSessionUser.getCurrentAppUser().getUsername());
@@ -155,5 +210,39 @@ public class UserProfileServiceImpl extends CommonServiceImpl<UserProfileDTO, Us
         log.info("Proceed to deactivate the profile");
         userProfile.setActiveProfile(Boolean.FALSE);
         userProfileRepository.save(userProfile);
+    }
+
+    private String saveInCloudinary(MultipartFile multipartFile) {
+        File file = fileHelper.convert(multipartFile);
+        String imageUrl = cloudinaryHelper.uploadImage(file);
+        if (imageUrl.isEmpty()) {
+            throw new CommonBusinessException(ErrorCode.ERROR_WITH_CLOUDINARY);
+        }
+        return imageUrl;
+    }
+
+    private void deleteProfilePhoto(UserProfile userProfile) {
+        if (userProfile.getProfilePhoto().startsWith(cloudinaryHost)) {
+            String result = cloudinaryHelper.destroyImage(userProfile.getProfilePhoto());
+            if (!result.equalsIgnoreCase("200"))
+                throw new CommonBusinessException(ErrorCode.ERROR_WITH_CLOUDINARY);
+            return ;
+        }
+        if (!fileHelper.deleteFileByPath(userProfile.getProfilePhoto())) {
+            log.error("Can not delete file");
+            throw new CommonBusinessException(ErrorCode.CANNOT_DELETE_FILE);
+        }
+    }
+
+    private String getImagePathWithCloudinaryTransformations(String imageUrl) {
+        Map<String, String> transformations = new HashMap<>();
+        transformations.put("crop", "fill");
+        transformations.put("width", "400");
+        transformations.put("height", "400");
+        transformations.put("gravity", "face");
+        transformations.put("radius", "max");
+
+        String transformedImageUrl = cloudinaryHelper.applyImageTransformations(imageUrl, transformations);
+        return transformedImageUrl;
     }
 }

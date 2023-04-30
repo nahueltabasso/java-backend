@@ -10,6 +10,8 @@ import org.springframework.context.annotation.ComponentScan;
 @ComponentScan(basePackages = {
 		"nrt.common.microservice.exceptions",
 //		"nrt.common.microservice.services",
+		"nrt.common.microservice.helpers",
+		"helpers",
 		"com.userservice.app"
 })
 @SpringBootApplication(exclude = SecurityAutoConfiguration.class)
