@@ -5,6 +5,7 @@ import com.userservice.app.error.ErrorCode;
 import com.userservice.app.models.dto.UserProfileDTO;
 import com.userservice.app.models.entity.UserProfile;
 import com.userservice.app.models.repository.UserProfileRepository;
+import com.userservice.app.services.LocationService;
 import com.userservice.app.services.UserProfileService;
 import helpers.CloudinaryHelper;
 import lombok.extern.slf4j.Slf4j;
@@ -17,6 +18,7 @@ import nrt.common.microservice.helpers.FileHelper;
 import nrt.common.microservice.services.impl.CommonServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.core.env.Environment;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
@@ -32,6 +34,9 @@ public class UserProfileServiceImpl extends CommonServiceImpl<UserProfileDTO, Us
 
     @Autowired
     private UserProfileRepository userProfileRepository;
+    @Autowired
+    @Lazy
+    private LocationService locationService;
     @Autowired
     private AuthFeignClient authFeignClient;
     @Autowired
@@ -177,19 +182,11 @@ public class UserProfileServiceImpl extends CommonServiceImpl<UserProfileDTO, Us
                 .orElseThrow(() -> new ResourceNotFoundException(ErrorCode.NOT_FOUND_USER_PROFILE));
         log.info("Profile exists");
 
-//        if (userProfile.getProfilePhoto().startsWith(cloudinaryHost)) {
-//            String result = cloudinaryHelper.destroyImage(userProfile.getProfilePhoto());
-//            if (!result.equalsIgnoreCase("200"))
-//                throw new CommonBusinessException(ErrorCode.ERROR_WITH_CLOUDINARY);
-//        }
-//        else {
-//            if (!fileHelper.deleteFileByPath(userProfile.getProfilePhoto())) {
-//                log.error("Can not delete file");
-//                throw new CommonBusinessException(ErrorCode.CANNOT_DELETE_FILE);
-//            }
-//        }
         deleteProfilePhoto(userProfile);
         log.info("Delete file in " + userProfile.getProfilePhoto());
+
+        // Delete the locations of user profile
+        locationService.deleteLocationByUserProfile(id);
 
         userProfileRepository.deleteById(id);
         log.info("Deleted profile for user with email -> " + userProfile.getEmail());
