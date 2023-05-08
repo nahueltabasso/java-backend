@@ -11,8 +11,11 @@ spring:
     password: ${MYSQL_DB_PASSWORD}
     driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
-    database-platform: org.hibernate.dialect.MySQL8Dialect
+#    database-platform: org.hibernate.dialect.MySQL8Dialect
     generate-ddl: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.spatial.dialect.mysql.MySQL56InnoDBSpatialDialect
 
   # File size config
   servlet:

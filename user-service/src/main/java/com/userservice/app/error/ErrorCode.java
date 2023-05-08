@@ -9,4 +9,5 @@ public class ErrorCode {
     public static final String CANNOT_DELETE_FILE = "CANNOT_DELETE_FILE";
     public static final String ERROR_WITH_CLOUDINARY = "ERROR_WITH_CLOUDINARY";
     public static final String EXIST_PROFILE_USER = "EXIST_PROFILE_USER";
+    public static final String COORDINATE_NOT_NULL = "COORDINATE_NOT_NULL";
 }
