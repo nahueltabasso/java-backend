@@ -51,6 +51,10 @@ public class UserProfileController extends CommonController<UserProfileFilterDTO
         if (file.isEmpty()) {
             throw new CommonBusinessException(ErrorCode.FILE_NOT_NULL);
         }
+
+        // Valid if the file is a valid image such as a profile photo picture
+        userProfileService.validFaceInProfilePotho(file);
+
         log.info("Passes body request validations");
         log.info("Content-Type of request -> " + file.getContentType());
         log.info("Filename -> " + file.getOriginalFilename());

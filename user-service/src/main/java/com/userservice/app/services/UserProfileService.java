@@ -9,5 +9,6 @@ public interface UserProfileService extends CommonService<UserProfileDTO> {
     public UserProfileDTO saveNewProfile(UserProfileDTO dto, MultipartFile profilePhoto);
     public UserProfileDTO updateProfile(Long id, UserProfileDTO dto, MultipartFile profilePhoto);
     public void disabledUserProfile(Long id);
+    public void validFaceInProfilePotho(MultipartFile file);
 
 }

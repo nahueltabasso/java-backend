@@ -10,4 +10,8 @@ public class ErrorCode {
     public static final String ERROR_WITH_CLOUDINARY = "ERROR_WITH_CLOUDINARY";
     public static final String EXIST_PROFILE_USER = "EXIST_PROFILE_USER";
     public static final String COORDINATE_NOT_NULL = "COORDINATE_NOT_NULL";
+    public static final String PROFILE_PHOTO_NOT_VALID = "PROFILE_PHOTO_NOT_VALID";
+    public static final String PROFILE_PHOTO_DETECT_MANY_FACES = "PROFILE_PHOTO_DETECT_MANY_FACES";
+    public static final String FILE_NOT_IMAGE = "FILE_NOT_IMAGE";
+    public static final String HEADER_NOT_VALID = "HEADER_NOT_VALID";
 }

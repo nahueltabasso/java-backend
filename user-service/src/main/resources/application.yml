@@ -43,3 +43,9 @@ cloudinary:
   profile_photo_filters: resize, improve_photo, resize_based_face_detection
   host: ${CLOUDINARY_HOST}
   delete_uri: ${CLOUDINARY_DELETE_URI}
+
+detectFaceApi:
+#  uri: ${DETECT_FACES_URI}
+  uri: http://localhost:8000
+#  api_key: ${DETECT_FACES_API_KEY}
+  api_key: 132dvdsq3f3ddg6j6

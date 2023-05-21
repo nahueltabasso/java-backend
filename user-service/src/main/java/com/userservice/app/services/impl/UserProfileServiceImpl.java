@@ -1,7 +1,9 @@
 package com.userservice.app.services.impl;
 
 import com.userservice.app.clients.AuthFeignClient;
+import com.userservice.app.clients.DetectFaceApiClient;
 import com.userservice.app.error.ErrorCode;
+import com.userservice.app.models.dto.DetectFaceAPIResponseDTO;
 import com.userservice.app.models.dto.UserProfileDTO;
 import com.userservice.app.models.entity.UserProfile;
 import com.userservice.app.models.repository.UserProfileRepository;
@@ -49,6 +51,8 @@ public class UserProfileServiceImpl extends CommonServiceImpl<UserProfileDTO, Us
     private Boolean saveInCDN;
     @Value("${cloudinary.host}")
     private String cloudinaryHost;
+    @Autowired
+    private DetectFaceApiClient detectFaceApiClient;
 
 
     @Override
@@ -209,6 +213,25 @@ public class UserProfileServiceImpl extends CommonServiceImpl<UserProfileDTO, Us
         userProfileRepository.save(userProfile);
     }
 
+    @Override
+    public void validFaceInProfilePotho(MultipartFile file) {
+        log.info("Enter to validFaceInProfilePhoto");
+        String apiKey = environment.getProperty("detectFaceApi.api_key");
+        DetectFaceAPIResponseDTO responseDTO = detectFaceApiClient.detectFaces(apiKey, file);
+        String errorCode = responseDTO.getErrorCode();
+        if (errorCode != null && !errorCode.isEmpty()) {
+            throw new CommonBusinessException(errorCode);
+        }
+
+        if (!responseDTO.isDetectedFace()) {
+            throw new CommonBusinessException(ErrorCode.PROFILE_PHOTO_NOT_VALID);
+        }
+
+        if (responseDTO.getNumberOfDetectedFaces() > 1) {
+            throw new CommonBusinessException(ErrorCode.PROFILE_PHOTO_DETECT_MANY_FACES);
+        }
+    }
+
     private String saveInCloudinary(MultipartFile multipartFile) {
         File file = fileHelper.convert(multipartFile);
         String imageUrl = cloudinaryHelper.uploadImage(file);
@@ -242,4 +265,5 @@ public class UserProfileServiceImpl extends CommonServiceImpl<UserProfileDTO, Us
         String transformedImageUrl = cloudinaryHelper.applyImageTransformations(imageUrl, transformations);
         return transformedImageUrl;
     }
+
 }
