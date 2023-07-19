@@ -199,8 +199,10 @@ public class AuthServiceImpl extends CommonServiceImpl<UserDTO, User> implements
                 }
             }
             e.printStackTrace();
+            return MessageResponseDTO.builder()
+                    .httpStatus(HttpStatus.BAD_REQUEST.value())
+                    .build();
         }
-        return null;
     }
 
     @Override
