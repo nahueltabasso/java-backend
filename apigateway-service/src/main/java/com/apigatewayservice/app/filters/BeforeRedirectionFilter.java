@@ -2,8 +2,10 @@ package com.apigatewayservice.app.filters;
 
 import com.apigatewayservice.app.dto.TokenDTO;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.gateway.filter.GatewayFilter;
 import org.springframework.cloud.gateway.filter.factory.AbstractGatewayFilterFactory;
+import org.springframework.core.env.Environment;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.server.reactive.ServerHttpResponse;
@@ -17,7 +19,8 @@ import reactor.core.publisher.Mono;
 public class BeforeRedirectionFilter extends AbstractGatewayFilterFactory<BeforeRedirectionFilter.Config> {
 
     public static class Config {}
-
+    @Autowired
+    private Environment environment;
     private WebClient.Builder webClient;
 
     public BeforeRedirectionFilter(WebClient.Builder webClient) {
@@ -47,7 +50,7 @@ public class BeforeRedirectionFilter extends AbstractGatewayFilterFactory<Before
             log.info("Request URI = " + exchange.getRequest().getURI());
             return webClient.build()
                     .post()
-                    .uri("http://localhost:8091/api/security/auth/validate?token=" + chunks[1])
+                    .uri(environment.getProperty("app.security.validate-token-uri") + chunks[1])
                     .header("Authorization", "Bearer " + chunks[1])
                     .retrieve().bodyToMono(TokenDTO.class)
                     .map(t -> {
