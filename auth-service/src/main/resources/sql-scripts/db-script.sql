@@ -95,7 +95,7 @@ create table auth_password_reset
     user_id              bigint       null,
     constraint UK_code
         unique (code),
-    constraint FK_auth_user
+    constraint FK_auth_user1
         foreign key (user_id) references auth_users (id)
 );
 
