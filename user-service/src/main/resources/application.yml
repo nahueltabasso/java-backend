@@ -6,7 +6,8 @@ spring:
         password: 12121
   # Database config
   datasource:
-    url: jdbc:mysql://${MYSQL_DB_HOST}/${MYSQL_DB_NAME}?allowPublicKeyRetrieval=true&useSSL=false&serverTimezone=UTC
+    url: jdbc:mysql://${MYSQL_DB_HOST:localhost:3306}/red_social_local?allowPublicKeyRetrieval=true&useSSL=false&serverTimezone=UTC
+#    url: jdbc:mysql://${MYSQL_DB_HOST}/${MYSQL_DB_NAME}?allowPublicKeyRetrieval=true&useSSL=false&serverTimezone=UTC
     username: ${MYSQL_DB_USER}
     password: ${MYSQL_DB_PASSWORD}
     driver-class-name: com.mysql.cj.jdbc.Driver
@@ -28,7 +29,7 @@ server:
 
 auth:
   service:
-    uri: ${AUTH_SERVICE_URI}
+    uri: ${AUTH_SERVICE_URI:http://localhost:8091}
 
 paths:
   common-image-directory:
@@ -45,7 +46,8 @@ cloudinary:
   delete_uri: ${CLOUDINARY_DELETE_URI}
 
 detectFaceApi:
-#  uri: ${DETECT_FACES_URI}
-  uri: http://localhost:8000
-#  api_key: ${DETECT_FACES_API_KEY}
-  api_key: 132dvdsq3f3ddg6j6
+  uri: ${DETECT_FACES_URI:http://localhost:8000}
+#  uri: http://localhost:8000
+  api_key: ${DETECT_FACES_API_KEY:132dvdsq3f3ddg6j6}
+#  api_key: 132dvdsq3f3ddg6j6
+
