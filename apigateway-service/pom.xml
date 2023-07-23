@@ -6,7 +6,6 @@
         <groupId>com.server.parent</groupId>
         <artifactId>server-parent</artifactId>
         <version>1.0-SNAPSHOT</version>
-        <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.apigatewayservice.app</groupId>
     <artifactId>apigateway-service</artifactId>
