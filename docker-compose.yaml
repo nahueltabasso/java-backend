@@ -1,0 +1,68 @@
+version: "3.9"
+services:
+  mysql8:
+    container_name: mysql8
+    image: mysql:8
+    ports:
+      - "3307:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: red_social_local
+    volumes:
+      - ~/mysql_data:/var/lib/mysql
+    restart: always
+    networks:
+      - backend
+
+  gateway-service:
+    container_name: gateway-service
+#    image: gateway-service:latest
+    build:
+      context: ./
+      dockerfile: ./apigateway-service/Dockerfile
+    ports:
+      - "8090:8090"
+    env_file: ./apigateway-service/.env
+    restart: always
+    networks:
+      - backend
+
+  auth-service:
+    container_name: auth-service
+#    image: auth-service:latest
+    build:
+      context: ./
+      dockerfile: ./auth-service/Dockerfile
+    ports:
+      - "8091:8091"
+    env_file: ./auth-service/.env
+    networks:
+      - backend
+    depends_on:
+      - mysql8
+    restart: always
+
+  user-service:
+    container_name: user-service
+#    image: user-service:latest
+    build:
+      context: ./
+      dockerfile: ./user-service/Dockerfile
+    ports:
+      - "8092:8092"
+    env_file: ./user-service/.env
+    networks:
+      - backend
+    depends_on:
+      - mysql8
+      - auth-service
+    restart: always
+
+volumes:
+  data-mysql:
+    name: data-mysql
+
+networks:
+  backend:
+    name: backend
+
