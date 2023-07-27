@@ -1,0 +1,158 @@
+= TECHCONNECT BACKEND
+
+This project called `java-backend` or `server-parent` is the root module of backend developed with Spring
+Boot Framework and Java for a Social Network called **TechConnect** application.
+It is a modern Software Development Architecture based on Microservices that allows a modularized, robust and
+scalable structure for the development of the platform.
+
+== INDEX
+
+1. <<purpose, Purpose of this Architecture>>
+2. <<structure, Structure>>
+3. <<benefits, Benefits of this approach and architecture>>
+4. <<technologies, Technologies>>
+5. <<getting-started, Getting Started>>
+6. <<commons-settings, Settings>>
+7. <<build-run-docker, Build and Run these microservices with Docker>>
+8. <<api-gateway-service, APIGATEWAY-SERVICE>>
+9. <<auth-service, AUTH_SERVICE>>
+10. <<user-service, USER_SERVICE>>
+11. <<licence, Licences>>
+12. <<contact, Contact>>
+
+[[purpose]]
+== PURPOSE OF THIS ARCHITECTURE
+
+The main purpose or goal of this architecture is to provide a solid and organized foundation for the normal development
+of the backend or server of our TechConnect application. This allows a centralized management of the different
+microservices that make up the system, improving team collaboration and ensuring an efficient project delivery.
+
+[[structure]]
+== STRUCTURE
+
+The `java-backend` or `server-parent` was designed such as a Maven project and serves as a container for the
+various microservices that make up the Social Network platform.
+Each Microservice, such as user management or a security service has it own directory inside the project.
+
+[listing, tree]
+----
++-- name-service
+|   +-- src
+|       +-- main
+|           +-- java
+|               +-- Main.java
+|           +-- resources
+|               +-- application.yml
+|       +-- test
+|   +-- Dockerfile
+|   +-- pom.xml
++-- custom-dependencies
+|   +-- cloudinary-utils-java-1.0-SNAPSHOT.jar
+|   +-- common-annotations-java-1.0-SNAPSHOT
+|   +-- nrt-common-microservice-java-1.0-SNAPSHOT
++-- postman
+|   +-- Integrating-Proyect.postman_collection.json
++-- docker-compose.yaml
++-- pom.xml
++-- README.adoc
+----
+
+[[benefits]]
+== BENEFITS OF THIS APPROACH AND ARCHITECTURE
+
+This approach of `server-parent` both with the architecture based on microservices provides a serie of
+benefits for the development of any backend.
+
+* Scalability: This kind of architecture based on microservices allows scale each component in a independent way.
+Making it easy to manage a growing application.
+* Modularity: Separating functionality into microservices makes it easy to develop, reuse and maintain each
+module of your application.
+* Flexibility: Independents microservices allows for greater flexibility in the use of technologies and deployment
+in different environments.
+* Collaboration: Organized project structure and shared dependencies facilitate collaborative work between different
+developments teams.
+* Ease of Maintenance: Modularization allows you to resolve issue and make updates to specific components without
+affecting the entire application.
+
+[[technologies]]
+== TECHNOLOGIES
+
+* Java 18
+* Spring Framework 2.7.10
+* Maven 3.9.2
+* MySQL 8.0
+* Cloudinary
+* Docker 20.10.21
+* Intellij IDEA Ultimate
+
+[[getting-started]]
+== GETTING STARTED
+
+1. Clone the repository in your machine
+    * `git clone https://github.com/nahueltabasso/java-backend.git`
+2. Switch to a develop branch
+    * `git checkout develop`
+3. Update the develop branch
+    * `git pull origin development`
+4. Import the maven project in your IDE (Intellij, Eclipse, NetBeans, VS Code)
+5. Create a local database with this name `red_social_local`
+6. Run the microservices
+
+[[commons-settings]]
+== SETTINGS
+
+Before to run these microservices, need install MySQL and set up the follows environments variables:
+
+* env PORT
+* env MYSQL_DB_USER
+* env MYSQL_DB_PASSWORD
+* env MAIL_PORT
+* env MAIL_USERNAME
+* env MAIL_PASSWORD
+* env CLOUDINARY_CLOUD_NAME
+* env CLOUDINARY_API_KEY
+* env CLOUDINARY_API_SECRET
+* env CLOUDINARY_HOST
+* env CLOUDINARY_DELETE_URI
+* env FILE_DIRECTORY
+
+[[build-run-docker]]
+== BUILD AND RUN THESE MICROSERVICES WITH DOCKER
+
+The microservices of this project are dockerized.
+
+######
+ARBOL HACIA LOS DOCKER FILE
+######
+
+1. Build the images of each microservice in your environment and download MySQL image from DockerHub.
+In the root directory execute the next command in your terminal
+    * `docker-compose build`
+2. After to run the containers, execute the next command in your terminal
+    * `docker-compose up -d`
+
+
+[[api-gateway-service]]
+== API-GATEWAY-SERVICE
+This microservice acts as an entry and control point for requests, enabling centralized management of common
+operations, ensuring security and improving performance in a microservices environment. For more details read this
+link:./apigateway-service/README.adoc[README].
+
+[[auth-service]]
+== AUTH-SERVICE
+This microservice is responsible for the security of the application. For more details read this
+link:./auth-service/README.adoc[README].
+
+[[user-service]]
+== USER-SERVICE
+This microservice is responsible for managing user profiles and user settings. For more details read this
+link:./user-service/README.adoc[README].
+
+[[licence]]
+== LICENSE
+This project was under https://opensource.org/license/mit/[MIT LICENSE] license.
+
+[[contact]]
+== CONTACT
+If you have some question about this you can contact me to my email nahueltabasso@gmail.com
+
