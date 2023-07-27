@@ -1,1 +1,63 @@
 = APIGATEWAY-SERVICE
+
+This microservice working as an entry point and control for requests that enter into a
+microservices system or architecture based on microservices. It main goal is to act as an
+intermediate layer between the clients that do the requests and microservices that
+provides the responses.
+
+The *API Gateway* acts to a "facade" for the set of microservices, allowing clients to
+interact with the application without needing to know the location or implementation details
+of each individual microservice. In this sense, the API Gateway works like a proxy, taking
+requests from the client (front-end) and forwarding them to the appropiate microservices
+
+This project acts to a API Gateway for the backend of TechConnect Application.
+
+== INDEX
+
+1. <<technologies, Technologies>>
+2. <<getting-started, Getting Started>>
+3. <<docker, Build and Run with Docker>>
+4. <<contact, Contact>>
+
+[[technologies]]
+== TECHNOLOGIES
+
+* Java 18
+* Spring Framework 2.7.10
+* Maven 3.9.2
+* Docker 20.10.21
+* Intellij IDEA Ultimate
+
+[[getting-started]]
+== GETTING STARTED
+
+1. Import the maven project in your IDE (Intellij, Eclipse, NetBeans, VS Code)
+2. Run the microservice from your IDE
+
+*Note* if you want to run the API Gateway from the terminal, execute the follow command
+in the root directory of this project
+[source]
+`mvn -Dspring.profiles.active=local spring-boot:run`
+
+[[docker]]
+== BUILD AND RUN WITH DOCKER
+
+This service is dockerized.
+
+* To build a docker image to this microservice execute the follow command in your terminal
+[source]
+docker build -t gateway-service . -f ./apigateway-service/Dockerfile
+
+* To run a container with this docker image execute the follow command in your terminal
+[source]
+docker run -p 8090:8090 --env-file ./apigateway-service/.env  -d --rm --name gateway-service --network backend gateway-service
+
+    * -p -> port
+    * --env-file -> path to an .env file with necessary environment variables
+    * -d -> to run a container in dettach way
+    * --rm -> this flag allow to delete a container when you stop the same
+    * --name -> name of container from image
+
+[[contact]]
+== CONTACT
+If you have some question about this you can contact me to my email nahueltabasso@gmail.com
