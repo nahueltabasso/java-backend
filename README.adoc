@@ -121,10 +121,6 @@ Before to run these microservices, need install MySQL and set up the follows env
 
 The microservices of this project are dockerized.
 
-######
-ARBOL HACIA LOS DOCKER FILE
-######
-
 1. Build the images of each microservice in your environment and download MySQL image from DockerHub.
 In the root directory execute the next command in your terminal
     * `docker-compose build`
