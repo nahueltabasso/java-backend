@@ -95,57 +95,57 @@ docker run -p 8091:8091 --rm -d --env-file ./auth-service/.env --name auth-servi
 *Available API endpoints are listed below*
 
 |===
-|API  |HTTP Method |Path |Description
+^|API  ^|HTTP Method ^|Path ^|Description
 
-|Sign-Up
-|POST
-|/api/security/auth/sign-up
-|Allow to register new users providing a basic information
+^|Sign-Up
+^|POST
+^|/api/security/auth/sign-up
+^|Allow to register new users providing a basic information
 
-|Sign-In
-|POST
-|/api/security/auth/sign-in
-|Manage the process of login for this system
+^|Sign-In
+^|POST
+^|/api/security/auth/sign-in
+^|Manage the process of login for this system
 
-|Validate Token
-|POST
-|/api/security/auth/validate
-|Validate the access token of the request
+^|Validate Token
+^|POST
+^|/api/security/auth/validate
+^|Validate the access token of the request
 
-|Refresh Token
-|POST
-|/api/security/auth/refresh-token
-|Refresh the access token to keep connected
+^|Refresh Token
+^|POST
+^|/api/security/auth/refresh-token
+^|Refresh the access token to keep connected
 
-|Get User Details
-|GET
-|/api/security/auth/get-user-details
-|Obtain the user details from token
+^|Get User Details
+^|GET
+^|/api/security/auth/get-user-details
+^|Obtain the user details from token
 
-|Forgot Password
-|POST
-|/api/security/password/forgot-password
-|Allows to user make a request to change it password
+^|Forgot Password
+^|POST
+^|/api/security/password/forgot-password
+^|Allows to user make a request to change it password
 
-|Reset Password
-|POST
-|/api/security/password/reset-password
-|Reset user password
+^|Reset Password
+^|POST
+^|/api/security/password/reset-password
+^|Reset user password
 
-|Search Users
-|POST
-|/api/security/user
-|Retrieve a custom page of users by filters
+^|Search Users
+^|POST
+^|/api/security/user
+^|Retrieve a custom page of users by filters
 
-|Get User by Id
-|GET
-|/api/security/user/{id}
-|Retrieve a unique User by ID
+^|Get User by Id
+^|GET
+^|/api/security/user/{id}
+^|Retrieve a unique User by ID
 
-|Delete User
-|DELETE
-|/api/security/user/{id}
-|Delete a user by ID
+^|Delete User
+^|DELETE
+^|/api/security/user/{id}
+^|Delete a user by ID
 |===
 
 [[contact]]
