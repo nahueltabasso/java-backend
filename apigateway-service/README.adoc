@@ -37,7 +37,7 @@ This project acts to a API Gateway for the backend of TechConnect Application.
 *Note* if you want to run the API Gateway from the terminal, execute the follow command
 in the root directory of this project
 [source]
-`mvn -Dspring.profiles.active=local spring-boot:run`
+mvn -Dspring.profiles.active=local spring-boot:run
 
 [[docker]]
 == BUILD AND RUN WITH DOCKER
