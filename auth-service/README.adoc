@@ -1,3 +1,153 @@
-[[subsection1]]
-
 = AUTH SERVICE
+
+The `auth-service` is a microservice within the TechConnections software architecture.
+This microservice is responsible for the security of the application, its main objective is to manage all
+operations related to user authentication and security.
+
+== INDEX
+
+1. <<goals, Goals>>
+2. <<security, Security>>
+3. <<technologies, Technologies>>
+4. <<getting-started, Getting Started>>
+5. <<docker, Build and Run with Docker>>
+6. <<apis, APIs List>>
+7. <<contact, Contact>>
+
+[[goals]]
+== GOALS
+
+The main goals of this service are:
+
+* *Register Users*: allow to a new users register on this platform providing his/her basic information and
+create a new account.
+
+* *Login*: Manage the sign in process, authenticated to users with user's credentials and to emit a JWT
+
+* *Generate and Manage Access Tokens*: create and management secure access token to allow the users can
+consume APIs and other protected resources
+
+* *Validate and Refresh Tokens*: verify the token's sign and validity and allow it to be renewed
+to keep users connected
+
+* *Roles and Permissions Management*: Manage user roles and permissions to control access to specific
+functionalities within the application.
+
+[[security]]
+== SECURITY
+
+The auth.service is a critical component to ensure the security of the application. It implements security
+practices such as password encryption, the use of JWT access tokens (JSON Web Tokens), the configuration of
+password policies, the prevention of brute force attacks, and the protection against common vulnerabilities.
+
+[[technologies]]
+== TECHNOLOGIES
+
+* Java 18
+* Spring Framework 2.7.10
+* Maven 3.9.2
+* MySQL 8.0
+* Docker 20.10.21
+* Intellij IDEA Ultimate
+
+[[getting-started]]
+== GETTING STARTED
+
+1. Import the maven project in your IDE (Intellij, Eclipse, NetBeans, VS Code)
+2. Before to run the microservice, this needed a MySQL installed and create a database called `red_social_local`
+[source]
+CREATE DATABASE `red_social_local`;
+USE `red_social_local`
+
+3. Execute the SQL scripts file ./src/main/resources/sql-scripts/
+4. Run the microservice from your IDE
+
+*Note* if you want to run the API Gateway from the terminal, execute the follow command
+in the root directory of this project
+[source]
+mvn -Dspring.profiles.active=local spring-boot:run
+
+[[docker]]
+== BUILD AN RUN WITH DOCKER
+
+This service and MySQL are dockerized
+
+1. Download the MySQL image from the Hub
+[source]
+docker pull mysql:8
+
+2. Run the mysql:8 image
+[source]
+docker run -d -p 3307:3306 --name mysql8 --network backend -e MYSQL_ROOT_PASSWORD=root-e MYSQL_DATABASE=red_social_local
+-v ~/mysql_data:/var/lib/mysql --restart=always mysql:8
+
+3. To build a docker image to this microservice execute the follow command in your terminal
+[source]
+docker build -t auth-service . -f ./auth-service/Dockerfile
+
+4. To run a container with this docker image execute the follow command in your terminal
+[source]
+docker run -p 8091:8091 --rm -d --env-file ./auth-service/.env --name auth-service --network backend auth-service
+
+[[apis]]
+== APIs LIST
+
+*Available API endpoints are listed below*
+
+|===
+|API  |HTTP Method |Path |Description
+
+|Sign-Up
+|POST
+|/api/security/auth/sign-up
+|Allow to register new users providing a basic information
+
+|Sign-In
+|POST
+|/api/security/auth/sign-in
+|Manage the process of login for this system
+
+|Validate Token
+|POST
+|/api/security/auth/validate
+|Validate the access token of the request
+
+|Refresh Token
+|POST
+|/api/security/auth/refresh-token
+|Refresh the access token to keep connected
+
+|Get User Details
+|GET
+|/api/security/auth/get-user-details
+|Obtain the user details from token
+
+|Forgot Password
+|POST
+|/api/security/password/forgot-password
+|Allows to user make a request to change it password
+
+|Reset Password
+|POST
+|/api/security/password/reset-password
+|Reset user password
+
+|Search Users
+|POST
+|/api/security/user
+|Retrieve a custom page of users by filters
+
+|Get User by Id
+|GET
+|/api/security/user/{id}
+|Retrieve a unique User by ID
+
+|Delete User
+|DELETE
+|/api/security/user/{id}
+|Delete a user by ID
+|===
+
+[[contact]]
+== CONTACT
+If you have some question about this you can contact me to my email nahueltabasso@gmail.com
