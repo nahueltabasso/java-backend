@@ -4,6 +4,13 @@ The `auth-service` is a microservice within the TechConnections software archite
 This microservice is responsible for the security of the application, its main objective is to manage all
 operations related to user authentication and security.
 
+[horizontal]
+++++
+<div style="display: flex; justify-content: center; align-items: center; width: 100%;">
+    <img src="src/main/resources/assets/auth-service-mr.jpeg" alt="Imagen de salida">
+</div>
+++++
+
 == INDEX
 
 1. <<goals, Goals>>
