@@ -11,8 +11,15 @@ responsible for managing user profiles and related operations
 4. <<apis, APIs List>>
 5. <<contact, Contact>>
 
+
 [[technologies]]
 == TECHNOLOGIES
+image:https://img.shields.io/badge/Java_18-✓-blue.svg[Java 18, title="Java 18", alt="Java 18"]
+image:https://img.shields.io/badge/Spring_Boot_2.7.10-✓-Green.svg[Spring Boot, title="Spring Boot", alt="Spring Boot"]
+image:https://img.shields.io/badge/maven-✓-blue.svg[Maven, title="Maven", alt="Maven"]
+image:https://img.shields.io/badge/MySQL_8-✓-Green.svg[MySQL, title="MySQL", alt="MySQL"]
+image:https://img.shields.io/badge/Cloudinary-✓-red.svg[Cloudinary, title="Cloudinary", alt="Cloudinary"]
+image:https://img.shields.io/badge/Docker-✓-blue.svg[Docker, title="Docker", alt="Docker"]
 
 * Java 18
 * Spring Framework 2.7.10
