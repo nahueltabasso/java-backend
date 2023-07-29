@@ -36,7 +36,7 @@ functionalities within the application.
 [[security]]
 == SECURITY
 
-The auth.service is a critical component to ensure the security of the application. It implements security
+The `auth-service` is a critical component to ensure the security of the application. It implements security
 practices such as password encryption, the use of JWT access tokens (JSON Web Tokens), the configuration of
 password policies, the prevention of brute force attacks, and the protection against common vulnerabilities.
 
@@ -62,7 +62,7 @@ USE `red_social_local`
 3. Execute the SQL scripts file ./src/main/resources/sql-scripts/
 4. Run the microservice from your IDE
 
-*Note* if you want to run the API Gateway from the terminal, execute the follow command
+*Note* if you want to run the auth-service from the terminal, execute the follow command
 in the root directory of this project
 [source]
 mvn -Dspring.profiles.active=local spring-boot:run
