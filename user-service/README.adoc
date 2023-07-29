@@ -1,1 +1,120 @@
 = USER-SERVICE
+
+The `user-service` is a microservice within the TechConnections software architecture. This microservice is
+responsible for managing user profiles and related operations
+
+== INDEX
+
+1. <<technologies, Technologies>>
+2. <<getting-started, Getting Started>>
+3. <<docker, Build and Run with Docker>>
+4. <<apis, APIs List>>
+5. <<contact, Contact>>
+
+[[technologies]]
+== TECHNOLOGIES
+
+* Java 18
+* Spring Framework 2.7.10
+* Maven 3.9.2
+* MySQL 8.0
+* Cloudinary
+* Docker 20.10.21
+* Intellij IDEA Ultimate
+
+[[getting-started]]
+== GETTING STARTED
+
+1. Import the maven project in your IDE (Intellij, Eclipse, NetBeans, VS Code)
+2. Before to run the microservice, this needed a MySQL installed and create a database called `red_social_local`
+[source]
+CREATE DATABASE `red_social_local`;
+USE `red_social_local`
+
+3. Execute the SQL scripts file ./src/main/resources/sql-scripts/
+4. Run the microservice from your IDE
+
+* *Note* if you want to run the user-service from the terminal, execute the follow command
+in the root directory of this project
+[source]
+mvn -Dspring.profiles.active=local spring-boot:run
+
+[[docker]]
+== BUILD AN RUN WITH DOCKER
+
+This service and MySQL are dockerized
+
+1. Download the MySQL image from the Hub
+[source]
+docker pull mysql:8
+
+2. Run the mysql:8 image
+[source]
+docker run -d -p 3307:3306 --name mysql8 --network backend -e MYSQL_ROOT_PASSWORD=root-e MYSQL_DATABASE=red_social_local
+-v ~/mysql_data:/var/lib/mysql --restart=always mysql:8
+
+3. To build a docker image to this microservice execute the follow command in your terminal
+[source]
+docker build -t user-service . -f ./user-service/Dockerfile
+
+4. To run a container with this docker image execute the follow command in your terminal
+[source]
+docker run -p 8092:8092 --rm -d --env-file ./user-service/.env --name user-service --network backend user-service
+
+[[apis]]
+== APIs LIST
+
+*Available API endpoints are listed below*
+
+|===
+^|API  ^|HTTP Method ^|Path ^|Description
+
+^|Add new User Profile
+^|POST
+^|/api/users/user-profile/add
+^|Allow to register a profile from exist user
+
+^|Update User Profile
+^|PUT
+^|/api/users/user-profile/update-profile/{id}
+^|Allow to user modify or updating it own profile by id
+
+^|Disabled User Profile
+^|POST
+^|/api/users/user-profile/disabled/{id}
+^|Allow to user disabled it own profile by id
+
+^|Get all User Profiles
+^|GET
+^|/api/users/user-profile
+^|Return all profiles in database
+
+^|Get User Profile by ID
+^|GET
+^|/api/users/user-profile/{id}
+^|Return one profile by it own id
+
+^|Delete User Profile
+^|DELETE
+^|/api/users/user-profile/{id}
+^|Allows delete an user profile by it own id
+
+^|Add Location
+^|POST
+^|/api/users/location
+^|Allow to create a new location for one profile
+
+^|Get Location by id
+^|GET
+^|/api/users/location/{id}
+^|Return one location by id
+
+^|Delete Location
+^|DELETE
+^|/api/users/location/{id}
+^|Delete a location by id
+|===
+
+[[contact]]
+== CONTACT
+If you have some question about this you can contact me to my email nahueltabasso@gmail.com
