@@ -3,6 +3,13 @@
 The `user-service` is a microservice within the TechConnections software architecture. This microservice is
 responsible for managing user profiles and related operations
 
+[horizontal]
+++++
+<div style="display: flex; justify-content: center; align-items: center; width: 100%;">
+    <img src="src/main/resources/assets/user-service-rm.jpeg" alt="Imagen de salida" style="width: 600px;">
+</div>
+++++
+
 == INDEX
 
 1. <<technologies, Technologies>>
