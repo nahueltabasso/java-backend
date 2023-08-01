@@ -5,6 +5,13 @@ Boot Framework and Java for a Social Network called **TechConnect** application.
 It is a modern Software Development Architecture based on Microservices that allows a modularized, robust and
 scalable structure for the development of the platform.
 
+[horizontal]
+++++
+<div style="display: flex; justify-content: center; align-items: center; width: 100%;">
+    <img src="architecture-schema.jpg" alt="Imagen de salida">
+</div>
+++++
+
 == INDEX
 
 1. <<purpose, Purpose of this Architecture>>
