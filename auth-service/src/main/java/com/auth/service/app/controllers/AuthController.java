@@ -9,8 +9,11 @@ import com.auth.service.app.services.RefreshTokenService;
 import lombok.extern.slf4j.Slf4j;
 import nrt.common.microservice.controllers.CommonController;
 import nrt.common.microservice.exceptions.CommonBusinessException;
+import nrt.common.microservice.exceptions.ExceptionResponse;
 import nrt.common.microservice.services.CommonService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -21,6 +24,8 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.time.LocalDateTime;
+import java.util.Locale;
 
 @RestController
 @RequestMapping("/api/security/auth")
@@ -35,6 +40,8 @@ public class AuthController extends CommonController<UserDTO, UserDTO> {
     private RefreshTokenService refreshTokenService;
     @Autowired
     private JwtProvider jwtProvider;
+    @Autowired
+    private MessageSource messageSource;
 
     @Override
     protected CommonService getCommonService() {
@@ -52,6 +59,14 @@ public class AuthController extends CommonController<UserDTO, UserDTO> {
             dto = authService.saveNewUser(userDTO);
         } catch (CommonBusinessException e) {
             e.printStackTrace();
+            ExceptionResponse error = new ExceptionResponse(
+                    HttpStatus.BAD_REQUEST.value(),
+                    LocalDateTime.now(),
+                    e.getMessage(),
+                    messageSource.getMessage(e.getMessage(), null, Locale.US),
+                    null
+            );
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
         }
         return ResponseEntity.status(dto.getHttpStatus()).body(dto);
     }
@@ -80,19 +95,29 @@ public class AuthController extends CommonController<UserDTO, UserDTO> {
             // Generate the response of the login request
             LoginResponseDTO loginResponseDTO = authService.login(authentication);
             log.info("Login -> Successful login for user = " + loginRequestDTO.getUsername());
-//            return ResponseEntity.ok(new UsernamePasswordAuthenticationToken(loginResponseDTO, null, loginResponseDTO.getAuthorities()));
 
             return ResponseEntity.ok(loginResponseDTO);
         } catch (CommonBusinessException e) {
             e.printStackTrace();
+            log.warn("User " + loginRequestDTO.getUsername() + " is locked");
+            ExceptionResponse error = new ExceptionResponse(
+                    HttpStatus.BAD_REQUEST.value(),
+                    LocalDateTime.now(),
+                    e.getMessage(),
+                    messageSource.getMessage(e.getMessage(), null, Locale.US),
+                    null
+            );
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
         } catch (Exception e) {
             e.printStackTrace();
             log.error("Login incorrect: Bad credentials!");
             // Update the fails attemps if the username corresponds to one in the database
             // This property only is updating if the user enter a wrong password
             authService.updateFailsAttemps(loginRequestDTO.getUsername());
+            ExceptionResponse error = new ExceptionResponse(HttpStatus.BAD_REQUEST.value(), null, "BAD_CREDENTIALS",
+                    null, null);
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
         }
-        return null;
     }
 
     @PostMapping("/validate")
