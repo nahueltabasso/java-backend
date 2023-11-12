@@ -1,9 +1,8 @@
 {
 	"info": {
-		"_postman_id": "2bf2bdc5-4e06-4252-b7df-7d537096dd7e",
+		"_postman_id": "662d4f16-ad1f-47a5-8cad-0380a42c8dd9",
 		"name": "Integrating-Proyect",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "8971706"
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
 		{
@@ -19,7 +18,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"username\": \"auth1\",\n    \"email\": \"auth1@gmail.com\",\n    \"password\": \"PAa1234567\",\n    \"googleUser\": false,\n    \"facebookUser\": false,\n    \"appleUser\": false,\n    \"firstLogin\": true,\n    \"roles\": null,\n    \"userLocked\": false,\n    \"failsAttemps\": 0 \n}\n",
+							"raw": "{\n    \"username\": \"auth3\",\n    \"email\": \"auth4@gmail.com\",\n    \"password\": \"PAa1234567\",\n    \"confirmPassword\": \"PAa1234567\",\n    \"googleUser\": false,\n    \"facebookUser\": false,\n    \"appleUser\": false,\n    \"firstLogin\": true,\n    \"roles\": null,\n    \"userLocked\": false,\n    \"failsAttemps\": 0 \n}\n",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -57,7 +56,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"username\": \"auth1\",\n    \"password\": \"PAa1234567\"\n}",
+							"raw": "{\n    \"username\": \"auth2\",\n    \"password\": \"PAa12345671\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
