@@ -23,6 +23,8 @@ public class UserDTO extends CommonDTO {
     private String username;
     @Password
     private String password;
+    @Password
+    private String confirmPassword;
     @NotNull
     @Email
     private String email;

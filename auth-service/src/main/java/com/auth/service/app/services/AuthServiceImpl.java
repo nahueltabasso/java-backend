@@ -136,6 +136,10 @@ public class AuthServiceImpl extends CommonServiceImpl<UserDTO, User> implements
                 throw new CommonBusinessException(ErrorCode.EXIST_USER_BY_EMAIL);
             }
 
+            if (!dto.getPassword().equalsIgnoreCase(dto.getConfirmPassword())) {
+                throw new CommonBusinessException(ErrorCode.ERROR_PASSWORD_NOT_EQUALS);
+            }
+
             userDb = dtoToEntity(dto);
             userDb.setPassword(passwordEncoder.encode(userDb.getPassword()));
 
