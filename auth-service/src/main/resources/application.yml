@@ -27,6 +27,11 @@ spring:
             required: true
           auth: true
 
+google:
+  clientId: ${GOOGLE_CLIENT_ID:clientid}
+  clientSecret: ${GOOGLE_SECRET_ID:secretid}
+  commomPassword: ${GOOGLE_COMMON_PASSWORD:j137921}
+
 server:
   port: ${PORT:8091}
 

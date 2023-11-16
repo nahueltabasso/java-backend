@@ -16,4 +16,5 @@ public interface AuthService extends CommonService<UserDTO> {
     public void updateFailsAttemps(String username);
     public LoginResponseDTO validate(String token);
     public Map<String, Object> getCurrentUserDetails(String token);
+    public LoginResponseDTO googleLogin(String googleToken);
 }

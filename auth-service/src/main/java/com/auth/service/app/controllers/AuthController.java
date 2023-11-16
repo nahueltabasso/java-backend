@@ -11,6 +11,7 @@ import nrt.common.microservice.controllers.CommonController;
 import nrt.common.microservice.exceptions.CommonBusinessException;
 import nrt.common.microservice.services.CommonService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.MessageSource;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -38,6 +39,8 @@ public class AuthController extends CommonController<UserDTO, UserDTO> {
     private JwtProvider jwtProvider;
     @Autowired
     private MessageSource messageSource;
+    @Value("${google.clientId}")
+    private String googleClientId;
 
     @Override
     protected CommonService getCommonService() {
@@ -98,6 +101,13 @@ public class AuthController extends CommonController<UserDTO, UserDTO> {
             authService.updateFailsAttemps(loginRequestDTO.getUsername());
             return responseApiError("BAD_CREDENTIALS");
         }
+    }
+
+    @PostMapping("/google-sign-in")
+    public ResponseEntity<?> googleSignIn(@RequestParam String googleToken) {
+        log.info("Enter to googleSignIn()");
+        log.info("Google TokenId = " + googleToken);
+        return ResponseEntity.ok().body(authService.googleLogin(googleToken));
     }
 
     @PostMapping("/validate")

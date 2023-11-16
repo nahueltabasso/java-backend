@@ -11,6 +11,11 @@ import com.auth.service.app.models.repository.UserRepository;
 import com.auth.service.app.models.repository.UserRoleRepository;
 import com.auth.service.app.security.jwt.JwtProvider;
 import com.auth.service.app.security.services.UserDetailsImpl;
+import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken;
+import com.google.api.client.googleapis.auth.oauth2.GoogleIdTokenVerifier;
+import com.google.api.client.http.javanet.NetHttpTransport;
+import com.google.api.client.json.JsonFactory;
+import com.google.api.client.json.gson.GsonFactory;
 import lombok.extern.slf4j.Slf4j;
 import nrt.common.microservice.exceptions.CommonBusinessException;
 import nrt.common.microservice.models.repository.CommonEntityRepository;
@@ -22,11 +27,14 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.MessageSource;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -53,8 +61,14 @@ public class AuthServiceImpl extends CommonServiceImpl<UserDTO, User> implements
     private EmailService emailService;
     @Autowired
     private UserDetailsService userDetailsService;
+    @Autowired
+    private AuthenticationManager authenticationManager;
     @Value("${app.security.failsAttemps}")
     private int failsAttemps;
+    @Value("${google.clientId}")
+    private String googleClientId;
+    @Value("${google.commomPassword}")
+    private String googleCommonPassword;
 
     @Override
     protected CommonEntityRepository<User> getCommonRepository() {
@@ -294,6 +308,70 @@ public class AuthServiceImpl extends CommonServiceImpl<UserDTO, User> implements
                 .map(a -> a.getAuthority()).collect(Collectors.toList());
         result.put("authorities", authorities);
         return result;
+    }
+
+    @Override
+    public LoginResponseDTO googleLogin(String googleToken) {
+        log.info("Enter to googleLogin()");
+        try {
+            final NetHttpTransport netHttpTransport = new NetHttpTransport();
+            final JsonFactory jsonFactory = GsonFactory.getDefaultInstance();
+
+            GoogleIdTokenVerifier.Builder verifier =
+                    new GoogleIdTokenVerifier.Builder(netHttpTransport, jsonFactory)
+                            .setAudience(Collections.singletonList(googleClientId));
+
+            final GoogleIdToken googleIdToken = GoogleIdToken.parse(verifier.getJsonFactory(), googleToken);
+            final GoogleIdToken.Payload payload = googleIdToken.getPayload();
+
+            Optional<User> userOptional = userRepository.findByEmail(payload.getEmail());
+            User user = saveGoogleUser(userOptional, payload);
+            Authentication authentication = authenticationManager.authenticate(
+                    new UsernamePasswordAuthenticationToken(user.getUsername(), googleCommonPassword));
+
+            return this.login(authentication);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private User saveGoogleUser(Optional<User> userOptional, GoogleIdToken.Payload payload) {
+        User user = null;
+        if (userOptional.isPresent()) {
+            // User registered previous
+            log.info("User founded - Username = " + userOptional.get().getUsername());
+            user = userOptional.get();
+            user.setPassword(passwordEncoder.encode(this.googleCommonPassword));
+            user.setGoogleUser(Boolean.TRUE);
+            userRepository.save(user);
+        }
+
+        if (!userOptional.isPresent()) {
+            // New user
+            log.info("User not founded with email = " + payload.getEmail());
+            UserDTO userDTO = UserDTO.builder()
+                    .username(payload.getSubject())
+                    .email(payload.getEmail())
+                    .password(googleCommonPassword)
+                    .confirmPassword(googleCommonPassword)
+                    .googleUser(Boolean.TRUE)
+                    .facebookUser(Boolean.FALSE)
+                    .appleUser(Boolean.FALSE)
+                    .firstLogin(Boolean.TRUE)
+                    .userLocked(Boolean.FALSE)
+                    .roles(null)
+                    .failsAttemps(0).build();
+
+            user = this.dtoToEntity(userDTO);
+            user.setPassword(passwordEncoder.encode(user.getPassword()));
+            user = userRepository.save(user);
+
+            UserRole userRole = UserRole.builder()
+                    .role(roleRepository.findByRoleName(Role.ROLE_USER))
+                    .user(user).build();
+            userRoleRepository.save(userRole);
+        }
+        return user;
     }
 
     private Boolean isRoleValid(RoleDTO roleDTO) {
