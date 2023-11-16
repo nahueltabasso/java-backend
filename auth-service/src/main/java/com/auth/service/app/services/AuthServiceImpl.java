@@ -323,7 +323,6 @@ public class AuthServiceImpl extends CommonServiceImpl<UserDTO, User> implements
 
             final GoogleIdToken googleIdToken = GoogleIdToken.parse(verifier.getJsonFactory(), googleToken);
             final GoogleIdToken.Payload payload = googleIdToken.getPayload();
-
             Optional<User> userOptional = userRepository.findByEmail(payload.getEmail());
             User user = saveGoogleUser(userOptional, payload);
             Authentication authentication = authenticationManager.authenticate(
@@ -350,7 +349,7 @@ public class AuthServiceImpl extends CommonServiceImpl<UserDTO, User> implements
             // New user
             log.info("User not founded with email = " + payload.getEmail());
             UserDTO userDTO = UserDTO.builder()
-                    .username(payload.getSubject())
+                    .username(payload.get("given_name").toString().concat(payload.get("family_name").toString()))
                     .email(payload.getEmail())
                     .password(googleCommonPassword)
                     .confirmPassword(googleCommonPassword)

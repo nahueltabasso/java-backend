@@ -81,6 +81,41 @@
 					"response": []
 				},
 				{
+					"name": "GoogleLogin",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "jfdskfjsdkfdsf",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8090/api/security/auth/google-sign-in?googleToken=eyJhbGciOiJSUzI1NiIsImtpZCI6IjViMzcwNjk2MGUzZTYwMDI0YTI2NTVlNzhjZmE2M2Y4N2M5N2QzMDkiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJhY2NvdW50cy5nb29nbGUuY29tIiwiYXpwIjoiMTAwNTQwNzY4ODgxOS1kanJubmcyYzhxN2FzazZmcnVyOTM4NDdsZTQ0ZXQ3di5hcHBzLmdvb2dsZXVzZXJjb250ZW50LmNvbSIsImF1ZCI6IjEwMDU0MDc2ODg4MTktZGpybm5nMmM4cTdhc2s2ZnJ1cjkzODQ3bGU0NGV0N3YuYXBwcy5nb29nbGV1c2VyY29udGVudC5jb20iLCJzdWIiOiIxMDM4NjA2MDA4NjE5NTU1NjgyODUiLCJlbWFpbCI6Im5haHVlbHRhYmFzc29AZ21haWwuY29tIiwiZW1haWxfdmVyaWZpZWQiOnRydWUsImF0X2hhc2giOiJ3bTRIdTBhLV9WWVZ2djlsVm04ckhnIiwibmJmIjoxNzAwMDk5MjgwLCJuYW1lIjoiTmFodWVsIFRhYmFzc28iLCJwaWN0dXJlIjoiaHR0cHM6Ly9saDMuZ29vZ2xldXNlcmNvbnRlbnQuY29tL2EvQUNnOG9jTE4yWlZQbzNFWkVGOGxtUlVZRnpicUY4UjV2NVlLWlZCaGJERGc2N3UwPXM5Ni1jIiwiZ2l2ZW5fbmFtZSI6Ik5haHVlbCIsImZhbWlseV9uYW1lIjoiVGFiYXNzbyIsImxvY2FsZSI6ImVzIiwiaWF0IjoxNzAwMDk5NTgwLCJleHAiOjE3MDAxMDMxODAsImp0aSI6ImI3MDFhNTcyZGQ0YmI3ZWJiOTE4YjZjYjQwZDEzMWIxOWM4ZWY5OGEifQ.wtLJE75ybceasnTxBWKd2OEGvVOuolAdR-A8VGOjGfdGePVaApygj2Q4UU5byhs4Gbza9iF3hg36bgC1SSZK4NsmJF5Noda35izkKe-Y7ofiRK5c1nvMch-NooAqS3MHgPjct7X_-WzUH3f0dvD66EK4wfgSM3pP1lamkgp3CV0ySAdLbbUIj4N4g2YH_cwgDdqVDlc7p8Hhw8h17Ppudg80NYRurLCa5I2BoeolgxXoQaKyuq0n1iC_9XMYHfy8G7kRs1q6ZZqlWMcNF69o7ArzT1pMV4sVdBTfbrbvW5kjXZ6DT5cJRy6JJ0CGB3xhN_uVF25uZQr6c-k3vUCCoA\n",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8090",
+							"path": [
+								"api",
+								"security",
+								"auth",
+								"google-sign-in"
+							],
+							"query": [
+								{
+									"key": "googleToken",
+									"value": "eyJhbGciOiJSUzI1NiIsImtpZCI6IjViMzcwNjk2MGUzZTYwMDI0YTI2NTVlNzhjZmE2M2Y4N2M5N2QzMDkiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJhY2NvdW50cy5nb29nbGUuY29tIiwiYXpwIjoiMTAwNTQwNzY4ODgxOS1kanJubmcyYzhxN2FzazZmcnVyOTM4NDdsZTQ0ZXQ3di5hcHBzLmdvb2dsZXVzZXJjb250ZW50LmNvbSIsImF1ZCI6IjEwMDU0MDc2ODg4MTktZGpybm5nMmM4cTdhc2s2ZnJ1cjkzODQ3bGU0NGV0N3YuYXBwcy5nb29nbGV1c2VyY29udGVudC5jb20iLCJzdWIiOiIxMDM4NjA2MDA4NjE5NTU1NjgyODUiLCJlbWFpbCI6Im5haHVlbHRhYmFzc29AZ21haWwuY29tIiwiZW1haWxfdmVyaWZpZWQiOnRydWUsImF0X2hhc2giOiJ3bTRIdTBhLV9WWVZ2djlsVm04ckhnIiwibmJmIjoxNzAwMDk5MjgwLCJuYW1lIjoiTmFodWVsIFRhYmFzc28iLCJwaWN0dXJlIjoiaHR0cHM6Ly9saDMuZ29vZ2xldXNlcmNvbnRlbnQuY29tL2EvQUNnOG9jTE4yWlZQbzNFWkVGOGxtUlVZRnpicUY4UjV2NVlLWlZCaGJERGc2N3UwPXM5Ni1jIiwiZ2l2ZW5fbmFtZSI6Ik5haHVlbCIsImZhbWlseV9uYW1lIjoiVGFiYXNzbyIsImxvY2FsZSI6ImVzIiwiaWF0IjoxNzAwMDk5NTgwLCJleHAiOjE3MDAxMDMxODAsImp0aSI6ImI3MDFhNTcyZGQ0YmI3ZWJiOTE4YjZjYjQwZDEzMWIxOWM4ZWY5OGEifQ.wtLJE75ybceasnTxBWKd2OEGvVOuolAdR-A8VGOjGfdGePVaApygj2Q4UU5byhs4Gbza9iF3hg36bgC1SSZK4NsmJF5Noda35izkKe-Y7ofiRK5c1nvMch-NooAqS3MHgPjct7X_-WzUH3f0dvD66EK4wfgSM3pP1lamkgp3CV0ySAdLbbUIj4N4g2YH_cwgDdqVDlc7p8Hhw8h17Ppudg80NYRurLCa5I2BoeolgxXoQaKyuq0n1iC_9XMYHfy8G7kRs1q6ZZqlWMcNF69o7ArzT1pMV4sVdBTfbrbvW5kjXZ6DT5cJRy6JJ0CGB3xhN_uVF25uZQr6c-k3vUCCoA\n"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "RefreshToken",
 					"request": {
 						"method": "POST",
