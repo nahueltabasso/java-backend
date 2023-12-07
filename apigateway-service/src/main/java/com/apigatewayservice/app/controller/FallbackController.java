@@ -38,4 +38,17 @@ public class FallbackController {
                 .body(map));
     }
 
+    @RequestMapping (value = "/fallback/post-service",
+            method = {RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT, RequestMethod.DELETE})
+    @ResponseBody
+    public Mono<ResponseEntity<Map<String, String>>> postServiceFallback() {
+        Map<String, String> map = new HashMap<>();
+        map.put("httpStatus", HttpStatus.SERVICE_UNAVAILABLE.value() + "");
+        map.put("type", "error");
+        map.put("message", "Post Service not available!");
+        return Mono.just(ResponseEntity.status(HttpStatus.SERVICE_UNAVAILABLE)
+                .contentType(MediaType.APPLICATION_JSON)
+                .body(map));
+    }
+
 }

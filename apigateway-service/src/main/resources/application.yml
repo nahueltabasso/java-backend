@@ -30,7 +30,7 @@ spring:
                 name: userCircuitBreaker
                 fallbackUri: forward:/fallback/user-service
 
-        - id: auth-service  auth-service
+        - id: auth-service
           uri: ${AUTH_SERVICE_URI:http://localhost:8091}
           predicates:
             - Path=/api/security/**
@@ -39,6 +39,16 @@ spring:
               args:
                 name: authCircuitBreaker
                 fallbackUri: forward:/fallback/auth-service
+
+        - id: post-service
+          uri: ${POST_SERVICE_URI:http://localhost:8093}
+          predicates:
+            - Path=/api/post/**
+          filters:
+            - name: CircuitBreaker
+              args:
+                name: postServiceBreaker
+                fallbackUri: forward:/fallback/post-service
 
 resilience4j:
   circuitbreaker:
@@ -61,6 +71,16 @@ resilience4j:
         wait-duration-in-open-state: 25000
         slow-call-duration-threshold: 30000
         permitted-number-of-calls-in-half-open-state: 10
+      postCircuitBreaker:
+        registerHealthIndicator: true
+        failure-rate-threshold: 50
+        sliding-window-size: 10
+        sliding-window-type: COUNT_BASED
+        minimum-number-of-calls: 5
+        wait-duration-in-open-state: 25000
+        slow-call-duration-threshold: 30000
+        permitted-number-of-calls-in-half-open-state: 10
+
   timelimiter:
     instances:
       authCircuitBreaker:
