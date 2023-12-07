@@ -1,0 +1,42 @@
+spring:
+  application:
+    name: post-service
+  data:
+    mongodb:
+      host: localhost
+      port: 27017
+      database: tech_connect_db
+  # File size config
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 10MB
+
+server:
+  port: ${PORT:8093}
+
+paths:
+  common-image-directory:
+    #    location:
+    location: ${FILE_DIRECTORY:/Users/nahueltabasso/Documents/Files/profiles}
+
+#cloudinary:
+#  active: true
+#  cloud_name: ${CLOUDINARY_CLOUD_NAME}
+#  api_key: ${CLOUDINARY_API_KEY}
+#  api_secret: ${CLOUDINARY_API_SECRET}
+#  profile_photo_filters: resize, improve_photo, resize_based_face_detection
+#  host: ${CLOUDINARY_HOST}
+#  delete_uri: ${CLOUDINARY_DELETE_URI}
+
+cloudinary:
+  active: true
+  cloud_name: dh7lbjmde
+  api_key: 429471799867978
+  api_secret: -W0UeEGMBoV-Yw41yaESMeiHIpw
+  profile_photo_filters: resize, improve_photo, resize_based_face_detection
+  host: https://res.cloudinary.com/dh7lbjmde
+  delete_uri: https://api.cloudinary.com/v1_1/dh7lbjmde/image/destroy
+
+
+
