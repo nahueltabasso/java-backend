@@ -34,12 +34,21 @@
 <!--			<artifactId>spring-cloud-starter-openfeign</artifactId>-->
 <!--&lt;!&ndash;			<version>3.0.0</version>&ndash;&gt;-->
 <!--		</dependency>-->
-		<dependency>
-			<groupId>org.springframework.cloud</groupId>
-			<artifactId>spring-cloud-openfeign-core</artifactId>
-			<version>3.0.2</version>
-		</dependency>
+<!--		<dependency>-->
+<!--			<groupId>org.springframework.cloud</groupId>-->
+<!--			<artifactId>spring-cloud-starter-openfeign</artifactId>-->
+<!--			<version>3.1.6</version>-->
+<!--		</dependency>-->
+<!--		<dependency>-->
+<!--			<groupId>com.playtika.reactivefeign</groupId>-->
+<!--			<artifactId>feign-reactor-spring-cloud-starter</artifactId>-->
+<!--			<version>3.2.6</version>-->
+<!--		</dependency>-->
 
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-security</artifactId>
+		</dependency>
 		<dependency>
 			<groupId>com.cloudinaryutils</groupId>
 			<artifactId>cloudinary-utils-java</artifactId>

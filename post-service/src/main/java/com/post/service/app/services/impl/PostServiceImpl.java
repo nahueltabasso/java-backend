@@ -1,9 +1,12 @@
 package com.post.service.app.services.impl;
 
+import com.post.service.app.clients.UserClient;
 import com.post.service.app.models.documents.Post;
 import com.post.service.app.models.dto.PostDTO;
 import com.post.service.app.models.dto.PostFilterDTO;
+import com.post.service.app.models.dto.UserDTO;
 import com.post.service.app.models.repository.PostRepository;
+import com.post.service.app.security.models.CommonUserDetailsDTO;
 import com.post.service.app.services.FileService;
 import com.post.service.app.services.PostService;
 import lombok.extern.slf4j.Slf4j;
@@ -40,6 +43,9 @@ public class PostServiceImpl implements PostService {
     private String cloudinaryHost;
     @Autowired
     private ReactiveMongoTemplate reactiveMongoTemplate;
+    @Autowired
+    private UserClient userClient;
+    private CommonUserDetailsDTO currentUser;
 
     @Override
     public PostDTO entityToDto(Post entity) {
@@ -52,7 +58,12 @@ public class PostServiceImpl implements PostService {
                 .createAt(entity.getCreateAt())
                 .userId(entity.getUserId())
                 .userProfileId(entity.getUserProfileId()).build();
-        dto.setUserDTO(null);
+
+        // Complete a UserDTO object
+        Long userProfileId = entity.getUserProfileId();
+        String token = currentUser.getToken();
+        UserDTO userDTO = this.userClient.getUserById(token, userProfileId).block();
+        dto.setUserDTO(userDTO);
         return dto;
     }
 
@@ -68,6 +79,11 @@ public class PostServiceImpl implements PostService {
                 .userId(dto.getUserId())
                 .userProfileId(dto.getUserProfileId()).build();
         return entity;
+    }
+
+    @Override
+    public void setCurrentUser(CommonUserDetailsDTO userDetailsDTO) {
+        this.currentUser = userDetailsDTO;
     }
 
     @Override

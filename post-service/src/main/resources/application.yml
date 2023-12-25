@@ -38,5 +38,15 @@ cloudinary:
   host: https://res.cloudinary.com/dh7lbjmde
   delete_uri: https://api.cloudinary.com/v1_1/dh7lbjmde/image/destroy
 
+auth:
+  service:
+    uri: ${AUTH_SERVICE_URI:http://localhost:8091}
 
+user:
+  service:
+    uri: ${USER_SERVICE_URI:http://localhost:8092}
+
+logging:
+  level:
+    org.springframework.web.reactive.function.client: TRACE
 
