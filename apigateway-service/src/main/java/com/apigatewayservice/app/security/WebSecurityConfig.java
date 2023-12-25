@@ -19,9 +19,9 @@ public class WebSecurityConfig  {
         return httpSecurity.authorizeExchange()
                 .pathMatchers("/api/security/auth/**").permitAll()
                 .pathMatchers("/api/security/password/**").permitAll()
-                .pathMatchers("/api/post/**").permitAll()
                 .pathMatchers("/api/users/user-profile/**").authenticated()
                 .pathMatchers("/api/users/location/**").authenticated()
+                .pathMatchers("/api/post/**").authenticated()
                 .and().addFilterAt(jwtAuthenticationFilter, SecurityWebFiltersOrder.AUTHENTICATION)
                 .csrf().disable()
                 .build();
