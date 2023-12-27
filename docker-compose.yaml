@@ -20,7 +20,7 @@ services:
     ports:
       - "27017:27017"
     volumes:
-      - data-vol:/data/db
+      - mongo_data:/data/db
     restart: always
     networks:
       - backend
@@ -81,12 +81,15 @@ services:
     networks:
       - backend
     depends_on:
+      - mongo-db
       - auth-service
     restart: always
 
 volumes:
   data-mysql:
     name: data-mysql
+  mongo_data:
+    name: mongo-data
 
 networks:
   backend:
