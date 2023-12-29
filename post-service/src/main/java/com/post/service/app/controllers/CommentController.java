@@ -29,11 +29,7 @@ public class CommentController {
                                           @AuthenticationPrincipal CommonUserDetailsDTO userDetails) {
         log.info("Enter to create()");
         this.commentService.setCurrentUser(userDetails);
-        if (dto == null) {
-            System.out.println("ES NULL");
-        } else {
-            System.out.println("NO ES NULL");
-        }
+
         return this.commentService.save(dto)
                 .map(comment -> ResponseEntity
                         .created(URI.create("/api/post/comment"))
