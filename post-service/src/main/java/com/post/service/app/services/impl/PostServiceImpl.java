@@ -180,6 +180,11 @@ public class PostServiceImpl implements PostService {
         }).flatMap(p -> this.postRepository.deleteById(id)).then();
     }
 
+    @Override
+    public Mono<Post> getOne(String id) {
+        return this.postRepository.findById(id);
+    }
+
     private Mono<List<String>> saveFileInCloudinary(Flux<FilePart> files, PostDTO postDTO) {
         log.info("Enter to saveFileInCloudinary()");
         return files.flatMap(filePart -> this.fileService.uploadFile(filePart))

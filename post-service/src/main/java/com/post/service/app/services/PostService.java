@@ -20,4 +20,5 @@ public interface PostService {
     public Flux<PostDTO> findAll();
     public Mono<PostDTO> findById(String id);
     public Mono<Void> deleteById(String id);
+    public Mono<Post> getOne(String id);
 }
