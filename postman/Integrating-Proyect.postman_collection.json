@@ -56,7 +56,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"username\": \"auth2\",\n    \"password\": \"PAa12345671\"\n}",
+							"raw": "{\n    \"username\": \"auth1\",\n    \"password\": \"PAa1234567\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -219,7 +219,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzUxMiJ9.eyJ1c2VyRW5hYmxlZCI6dHJ1ZSwiaWQiOjEwLCJleHAiOjE2ODA0NjM3NTksImlhdCI6MTY4MDQ2MDE1OSwiZW1haWwiOiJuYWh1ZWx0YWJhc3NvQGdtYWlsLmNvbSIsImF1dGhvcml0aWVzIjpbIlJPTEVfVVNFUiJdLCJ1c2VybmFtZSI6ImF1dGgxIn0.HY8m-syTROfqOn94dkdvx9zh81PPQ8pbhTL21lgXgf_coe6KOQdVHxoO7tu3c7gNwrWxCFGsmKmfBj3IcDg_GA",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJ1c2VyRW5hYmxlZCI6dHJ1ZSwiaWQiOjgsImV4cCI6MTcwMDg1ODQyNSwiaWF0IjoxNzAwODU0ODI1LCJlbWFpbCI6ImF1dGgxQGdtYWlsLmNvbSIsImF1dGhvcml0aWVzIjpbIlJPTEVfVVNFUiJdLCJ1c2VybmFtZSI6ImF1dGgxIn0.UvZ417yryoBIOhi7zMUhoizgwL2QAEoOqV3Q4ti25hDrpJtjtFlRbjSmuAHS1iEdAsxfsF-Uu9y821e5ai7qaQ",
 									"type": "string"
 								}
 							]
@@ -233,7 +233,7 @@
 									"key": "profilePhoto",
 									"contentType": "multipart/form-data",
 									"type": "file",
-									"src": "/Users/nahueltabasso/Downloads/IMG_0449.PNG"
+									"src": "/Users/nahueltabasso/Documents/IMG_0469.jpeg"
 								},
 								{
 									"key": "jsonBody",
@@ -318,7 +318,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzUxMiJ9.eyJ1c2VyRW5hYmxlZCI6dHJ1ZSwiaWQiOjEwLCJleHAiOjE2ODA0NjM3NTksImlhdCI6MTY4MDQ2MDE1OSwiZW1haWwiOiJuYWh1ZWx0YWJhc3NvQGdtYWlsLmNvbSIsImF1dGhvcml0aWVzIjpbIlJPTEVfVVNFUiJdLCJ1c2VybmFtZSI6ImF1dGgxIn0.HY8m-syTROfqOn94dkdvx9zh81PPQ8pbhTL21lgXgf_coe6KOQdVHxoO7tu3c7gNwrWxCFGsmKmfBj3IcDg_GA",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJ1c2VyRW5hYmxlZCI6dHJ1ZSwiaWQiOjIsImV4cCI6MTcwMzYzOTkyMSwiaWF0IjoxNzAzNjM2MzIxLCJlbWFpbCI6ImF1dGgxQGdtYWlsLmNvbSIsImF1dGhvcml0aWVzIjpbIlJPTEVfVVNFUiJdLCJ1c2VybmFtZSI6ImF1dGgxIn0.IbdPhqA7SOilTrxj-XnYJU5oDHPB6NC5wLiGdFdwwKC28Pb_7e03s4Tkbwr00E7FKlJoe8Z9EjH6jrcmPu7NwA",
 									"type": "string"
 								}
 							]
@@ -401,6 +401,447 @@
 								"users",
 								"user-profile",
 								"15"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Post-Service",
+			"item": [
+				{
+					"name": "SavePost",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {}
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJ1c2VyRW5hYmxlZCI6dHJ1ZSwiaWQiOjIsImV4cCI6MTcwMzYzOTkyMSwiaWF0IjoxNzAzNjM2MzIxLCJlbWFpbCI6ImF1dGgxQGdtYWlsLmNvbSIsImF1dGhvcml0aWVzIjpbIlJPTEVfVVNFUiJdLCJ1c2VybmFtZSI6ImF1dGgxIn0.IbdPhqA7SOilTrxj-XnYJU5oDHPB6NC5wLiGdFdwwKC28Pb_7e03s4Tkbwr00E7FKlJoe8Z9EjH6jrcmPu7NwA",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file",
+									"contentType": "multipart/form-data",
+									"type": "file",
+									"src": "/Users/nahueltabasso/Documents/IMG_0343.jpeg"
+								},
+								{
+									"key": "post",
+									"value": "{\n   \"description\":\"Mi post 12\",\n   \"userProfileId\":2,\n   \"userId\":2\n}",
+									"contentType": "application/json",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8093/api/post/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8093",
+							"path": [
+								"api",
+								"post",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetAllPosts",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJ1c2VyRW5hYmxlZCI6dHJ1ZSwiaWQiOjgsImV4cCI6MTcwMzY0MTM5MCwiaWF0IjoxNzAzNjM3NzkwLCJlbWFpbCI6ImF1dGgxQGdtYWlsLmNvbSIsImF1dGhvcml0aWVzIjpbIlJPTEVfVVNFUiJdLCJ1c2VybmFtZSI6ImF1dGgxIn0.4gTtysRjf3iEGarUNEmNUBkmcBXz-mlQAyIQUXPttzZF7c8-tBSF0TyCc1UaOaXOqHvIOHVkCGc2SroZ2J2p2g",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8090/api/post/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8090",
+							"path": [
+								"api",
+								"post",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetPostById",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJ1c2VyRW5hYmxlZCI6dHJ1ZSwiaWQiOjgsImV4cCI6MTcwMzU1MTY3NCwiaWF0IjoxNzAzNTQ4MDc0LCJlbWFpbCI6ImF1dGgxQGdtYWlsLmNvbSIsImF1dGhvcml0aWVzIjpbIlJPTEVfVVNFUiJdLCJ1c2VybmFtZSI6ImF1dGgxIn0.ja4NgiV7kaTDqL2S9OY1NQ4UIWqDIo0PzZXrRGpoMbFHVsRnDlRHxzYKsm21lGHQWSvo8UOj-Qy0q6E8EzlIHw",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8090/api/post/658a14c8d9d3e77755e978cb",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8090",
+							"path": [
+								"api",
+								"post",
+								"658a14c8d9d3e77755e978cb"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DeletePostById",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJ1c2VyRW5hYmxlZCI6dHJ1ZSwiaWQiOjgsImV4cCI6MTcwMzgxMDQ3OSwiaWF0IjoxNzAzODA2ODc5LCJlbWFpbCI6ImF1dGgxQGdtYWlsLmNvbSIsImF1dGhvcml0aWVzIjpbIlJPTEVfVVNFUiJdLCJ1c2VybmFtZSI6ImF1dGgxIn0.KsGuc9PCNz5ARcPmcZX8gWvUwC78uFVla8imrOrii9WDaJsa8ykIkbgOGRr3vHXUPAEhaCxDJAdWWf-oQieLSA",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8093/api/post/658b7073c1e7596e5bcfaf47",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8093",
+							"path": [
+								"api",
+								"post",
+								"658b7073c1e7596e5bcfaf47"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CustomPostsSearch",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJ1c2VyRW5hYmxlZCI6dHJ1ZSwiaWQiOjgsImV4cCI6MTcwMzgyMDQ2NywiaWF0IjoxNzAzODE2ODY3LCJlbWFpbCI6ImF1dGgxQGdtYWlsLmNvbSIsImF1dGhvcml0aWVzIjpbIlJPTEVfVVNFUiJdLCJ1c2VybmFtZSI6ImF1dGgxIn0.CzCe_BXqrNOoPx4vK3GrjOSOix1Yezvx9cMhqy2I8Sl9ruTjwZRg5S-4TkFvctJFwM-pxInKoqHC6qi4cqa7Kg",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"userProfileId\": 8,\n    \"userProfileIds\": [],\n    \"dateFrom\": null,\n    \"dateTo\": null\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8093/api/post/search?page=0&size=5",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8093",
+							"path": [
+								"api",
+								"post",
+								"search"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "0"
+								},
+								{
+									"key": "size",
+									"value": "5"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CommentSave",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJ1c2VyRW5hYmxlZCI6dHJ1ZSwiaWQiOjgsImV4cCI6MTcwMzgxOTQzMSwiaWF0IjoxNzAzODE1ODMxLCJlbWFpbCI6ImF1dGgxQGdtYWlsLmNvbSIsImF1dGhvcml0aWVzIjpbIlJPTEVfVVNFUiJdLCJ1c2VybmFtZSI6ImF1dGgxIn0.IAdwqYHiQ201SunS9bwz-Cleggk3wyGQoaghtUXBaKEK7cv1YySKi2Ekf0CpNFpCalzHCMwdDIY_ATs6tvQujQ",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"comment\": \"Comentario sobre la publicacion 4\",\n    \"userProfileId\": 8,\n    \"userId\": 8,\n    \"postDTO\": {\n        \"id\": \"658e089ac13fb561c242ce3d\",\n        \"description\": \"Mi post 12\",\n        \"imagesPaths\": [\n            \"https://res.cloudinary.com/dh7lbjmde/image/upload/v1703807129/fqc7y3mt3t3kh7r8ok8t.jpg\"\n        ],\n        \"publicsIds\": null,\n        \"createAt\": \"2023-12-28T20:45:30.090929\",\n        \"userProfileId\": 8,\n        \"userId\": 8,\n        \"userDTO\": {\n            \"id\": 8,\n            \"userProfileId\": null,\n            \"firstName\": \"First Name Test\",\n            \"lastName\": \"Last Name Test\",\n            \"profilePhoto\": \"https://res.cloudinary.com/dh7lbjmde/image/upload/c_fill,g_face,h_400,r_max,w_400/mthl4q7q073emly9ayct.jpg\"\n        }\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8090/api/post/comment",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8090",
+							"path": [
+								"api",
+								"post",
+								"comment"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CommentByPost",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJ1c2VyRW5hYmxlZCI6dHJ1ZSwiaWQiOjgsImV4cCI6MTcwMzgxOTQzMSwiaWF0IjoxNzAzODE1ODMxLCJlbWFpbCI6ImF1dGgxQGdtYWlsLmNvbSIsImF1dGhvcml0aWVzIjpbIlJPTEVfVVNFUiJdLCJ1c2VybmFtZSI6ImF1dGgxIn0.IAdwqYHiQ201SunS9bwz-Cleggk3wyGQoaghtUXBaKEK7cv1YySKi2Ekf0CpNFpCalzHCMwdDIY_ATs6tvQujQ",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8090/api/post/comment/658e089ac13fb561c242ce3d",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8090",
+							"path": [
+								"api",
+								"post",
+								"comment",
+								"658e089ac13fb561c242ce3d"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CommentDeleteByPost",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJ1c2VyRW5hYmxlZCI6dHJ1ZSwiaWQiOjgsImV4cCI6MTcwMzgxOTQzMSwiaWF0IjoxNzAzODE1ODMxLCJlbWFpbCI6ImF1dGgxQGdtYWlsLmNvbSIsImF1dGhvcml0aWVzIjpbIlJPTEVfVVNFUiJdLCJ1c2VybmFtZSI6ImF1dGgxIn0.IAdwqYHiQ201SunS9bwz-Cleggk3wyGQoaghtUXBaKEK7cv1YySKi2Ekf0CpNFpCalzHCMwdDIY_ATs6tvQujQ",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8090/api/post/comment/658e089ac13fb561c242ce3d",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8090",
+							"path": [
+								"api",
+								"post",
+								"comment",
+								"658e089ac13fb561c242ce3d"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ReactionPostSave",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJ1c2VyRW5hYmxlZCI6dHJ1ZSwiaWQiOjgsImV4cCI6MTcwMzkwMjE1NSwiaWF0IjoxNzAzODk4NTU1LCJlbWFpbCI6ImF1dGgxQGdtYWlsLmNvbSIsImF1dGhvcml0aWVzIjpbIlJPTEVfVVNFUiJdLCJ1c2VybmFtZSI6ImF1dGgxIn0.zmVwjPtiKIjfJUq2p2bLHNSzqGB1252EV_-KDkD4lzyGpxk1uaOtBPA_uvZm5VdU4Jke3iKmZI9CpaFyY8qARg",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"postId\": \"658e089ac13fb561c242ce3d\",\n    \"userProfileId\": 8,\n    \"userId\": 8\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8090/api/post/reaction/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8090",
+							"path": [
+								"api",
+								"post",
+								"reaction",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ReactionPostFind",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJ1c2VyRW5hYmxlZCI6dHJ1ZSwiaWQiOjgsImV4cCI6MTcwMzkwMjE1NSwiaWF0IjoxNzAzODk4NTU1LCJlbWFpbCI6ImF1dGgxQGdtYWlsLmNvbSIsImF1dGhvcml0aWVzIjpbIlJPTEVfVVNFUiJdLCJ1c2VybmFtZSI6ImF1dGgxIn0.zmVwjPtiKIjfJUq2p2bLHNSzqGB1252EV_-KDkD4lzyGpxk1uaOtBPA_uvZm5VdU4Jke3iKmZI9CpaFyY8qARg",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8090/api/post/reaction/658e089ac13fb561c242ce3d",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8090",
+							"path": [
+								"api",
+								"post",
+								"reaction",
+								"658e089ac13fb561c242ce3d"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ReactionPostDeleteByPostAndUser",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJ1c2VyRW5hYmxlZCI6dHJ1ZSwiaWQiOjgsImV4cCI6MTcwMzkwMjE1NSwiaWF0IjoxNzAzODk4NTU1LCJlbWFpbCI6ImF1dGgxQGdtYWlsLmNvbSIsImF1dGhvcml0aWVzIjpbIlJPTEVfVVNFUiJdLCJ1c2VybmFtZSI6ImF1dGgxIn0.zmVwjPtiKIjfJUq2p2bLHNSzqGB1252EV_-KDkD4lzyGpxk1uaOtBPA_uvZm5VdU4Jke3iKmZI9CpaFyY8qARg",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8090/api/post/reaction/658e089ac13fb561c242ce3d/8",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8090",
+							"path": [
+								"api",
+								"post",
+								"reaction",
+								"658e089ac13fb561c242ce3d",
+								"8"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ReactionPostDeleteByPost",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJ1c2VyRW5hYmxlZCI6dHJ1ZSwiaWQiOjgsImV4cCI6MTcwMzkwMjE1NSwiaWF0IjoxNzAzODk4NTU1LCJlbWFpbCI6ImF1dGgxQGdtYWlsLmNvbSIsImF1dGhvcml0aWVzIjpbIlJPTEVfVVNFUiJdLCJ1c2VybmFtZSI6ImF1dGgxIn0.zmVwjPtiKIjfJUq2p2bLHNSzqGB1252EV_-KDkD4lzyGpxk1uaOtBPA_uvZm5VdU4Jke3iKmZI9CpaFyY8qARg",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8090/api/post/reaction/658e089ac13fb561c242ce3d",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8090",
+							"path": [
+								"api",
+								"post",
+								"reaction",
+								"658e089ac13fb561c242ce3d"
 							]
 						}
 					},
