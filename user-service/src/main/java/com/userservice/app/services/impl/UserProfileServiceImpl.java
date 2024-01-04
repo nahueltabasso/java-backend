@@ -66,7 +66,7 @@ public class UserProfileServiceImpl extends CommonServiceImpl<UserProfileDTO, Us
     }
 
     @Override
-    protected UserProfile dtoToEntity(UserProfileDTO dto) {
+    public UserProfile dtoToEntity(UserProfileDTO dto) {
         log.info("Enter to dtoToEntity()");
         UserProfile entity = UserProfile.builder()
                 .firstName(dto.getFirstName())
@@ -86,7 +86,7 @@ public class UserProfileServiceImpl extends CommonServiceImpl<UserProfileDTO, Us
     }
 
     @Override
-    protected UserProfileDTO entityToDto(UserProfile entity) {
+    public UserProfileDTO entityToDto(UserProfile entity) {
         UserProfileDTO dto = UserProfileDTO.builder()
                 .firstName(entity.getFirstName())
                 .lastName(entity.getLastName())

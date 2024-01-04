@@ -21,6 +21,7 @@ public class WebSecurityConfig  {
                 .pathMatchers("/api/security/password/**").permitAll()
                 .pathMatchers("/api/users/user-profile/**").authenticated()
                 .pathMatchers("/api/users/location/**").authenticated()
+                .pathMatchers("/api/users/friend-request/**").authenticated()
                 .and().addFilterAt(jwtAuthenticationFilter, SecurityWebFiltersOrder.AUTHENTICATION)
                 .csrf().disable()
                 .build();
