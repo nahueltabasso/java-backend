@@ -113,6 +113,11 @@ docker run -p 8092:8092 --rm -d --env-file ./user-service/.env --name user-servi
 ^|/api/users/user-profile/{id}
 ^|Allows delete an user profile by it own id
 
+^|Get near Users Profiles
+^|GET
+^|/api/users/user-profile/get-near-users
+^|Return a list of near users by logged user to possibles friend requests
+
 ^|Add Location
 ^|POST
 ^|/api/users/location
@@ -127,6 +132,32 @@ docker run -p 8092:8092 --rm -d --env-file ./user-service/.env --name user-servi
 ^|DELETE
 ^|/api/users/location/{id}
 ^|Delete a location by id
+
+^|Send a Friend Request
+^|POST
+^|/api/users/friend-request
+^|Allow to send a friend request to any user
+
+^|Get Pending Friend Requests
+^|GET
+^|/api/users/friend-request/pending-friend-requests
+^|Return pending friend requests by logged user
+
+^|Accept a Friend Requset
+^|POST
+^|/api/users/friend-request/accept/{id}
+^|Accept and update status of a friend request by ID
+
+^|Decline a Friend Request
+^|POST
+^|/api/users/friend-request/decline/{id}
+^|Decline and delete a friend request by ID
+
+^|Get Friends of a logged User
+^|GET
+^|/api/users/friend-request/get-friends-ids
+^|Return the friends ids of a logged user
+
 |===
 
 [[contact]]
