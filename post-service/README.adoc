@@ -1,0 +1,154 @@
+= POST-SERVICE
+
+The `post-service` is a microservice within the TechConnections software architecture. This microservice is
+responsible for managing user posts, comments and reactions.
+This microservices was developed with Spring WebFlux with reactive programm and Reactor JAVA api
+
+== INDEX
+
+1. <<technologies, Technologies>>
+2. <<getting-started, Getting Started>>
+3. <<docker, Build and Run with Docker>>
+4. <<apis, APIs List>>
+5. <<contact, Contact>>
+
+[[technologies]]
+== TECHNOLOGIES
+image:https://img.shields.io/badge/Java-ED8B00?style=for-the-badge&logo=openjdk&logoColor=white[]
+image:https://img.shields.io/badge/Spring-6DB33F?style=for-the-badge&logo=spring&logoColor=white[Spring Boot, title="Spring Boot", alt="Spring Boot"]
+image:https://img.shields.io/badge/Spring_Security-6DB33F?style=for-the-badge&logo=Spring-Security&logoColor=white[]
+image:https://img.shields.io/badge/MongoDB-4EA94B?style=for-the-badge&logo=mongodb&logoColor=white[]
+image:https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white[]
+image:https://img.shields.io/badge/IntelliJ_IDEA-000000.svg?style=for-the-badge&logo=intellij-idea&logoColor=white[]
+image:https://img.shields.io/badge/maven-✓-blue.svg[Maven, title="Maven", alt="Maven"]
+image:https://img.shields.io/badge/Cloudinary-✓-red.svg[Cloudinary, title="Cloudinary", alt="Cloudinary"]
+image:https://img.shields.io/badge/Docker-✓-blue.svg[Docker, title="Docker", alt="Docker"]
+
+* Java 18
+* Spring Framework 2.7.10
+* Spring Security
+* Maven 3.9.2
+* MongoDB
+* Cloudinary
+* Docker 20.10.21
+* Intellij IDEA Ultimate
+
+[[getting-started]]
+== GETTING STARTED
+
+1. Import the maven project in your IDE (Intellij, Eclipse, NetBeans, VS Code)
+2. Run the microservice from your IDE
+
+* *Note* if you want to run the user-service from the terminal, execute the follow command
+in the root directory of this project
+[source]
+mvn -Dspring.profiles.active=local spring-boot:run
+
+[[docker]]
+== BUILD AN RUN WITH DOCKER
+
+This service and MongoDB are dockerized
+
+1. Download the MongoDB image from the Hub
+[source]
+docker pull mongo:6.0.11
+
+2. Run the mysql:8 image
+[source]
+docker run -d -p 27017:27017 --name mongo-db mongo:6.0.11
+
+3. To build a docker image to this microservice execute the follow command in your terminal
+[source]
+docker build -t post-service . -f ./post-service/Dockerfile
+
+4. To run a container with this docker image execute the follow command in your terminal
+[source]
+docker run -p 8093:8093 --rm -d --env-file ./post-service/.env --name post-service --network backend post-service
+
+[[apis]]
+== APIs LIST
+
+*Available API endpoints are listed below*
+
+|===
+^|API  ^|HTTP Method ^|Path ^|Description
+
+^|Add new Post
+^|POST
+^|/api/post/
+^|Allow to persist a new Post
+
+^|Get All Posts
+^|GET
+^|/api/post
+^|Return all posts
+
+^|Get Post by ID
+^|GET
+^|/api/post/{id}
+^|Return a specific post by ID
+
+^|Get all User Profiles
+^|GET
+^|/api/users/user-profile
+^|Return all profiles in database
+
+^|Delete Post by ID
+^|DELETE
+^|/api/post/{id}
+^|Delete a Post by ID
+
+^|Custom Search
+^|POST
+^|/api/post/search?page=x&size=y
+^|Return a paginate list of posts by filters
+
+^|Save Comment
+^|POST
+^|/api/post/comment
+^|Allow to save a comment
+
+^|Get Comments by Post
+^|GET
+^|/api/post/comment/{postId}
+^|Return comment by post
+
+^|Get All Comment
+^|GET
+^|/api/post/comment
+^|Return all comments
+
+^|Delete Comment by Post
+^|DELETE
+^|/api/post/comment/{postId}
+^|Delete comments by post
+
+^|Delete
+^|DELETE
+^|/api/post/comment
+^|Delete all posts
+
+^|Register Reaction
+^|POST
+^|/api/post/reaction
+^|Save reaction
+
+^|Get Reactions by Post
+^|GET
+^|/api/post/reaction/{postId}
+^|Return all reactions by post
+
+^|Delete Reaction
+^|DELETE
+^|/api/post/reaction/{postId}/{userProfileId}
+^|Delete a reaction by postId and userProfileId
+
+^|Delete by Post
+^|DELETE
+^|/api/post/reaction/{postId}
+^|Delete all reactions by post
+|===
+
+[[contact]]
+== CONTACT
+If you have some question about this you can contact me to my email nahueltabasso@gmail.com

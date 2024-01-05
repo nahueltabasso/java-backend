@@ -14,6 +14,17 @@ services:
     networks:
       - backend
 
+  mongo-db:
+    container_name: mongo-db
+    image: mongo:6.0.11
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+    restart: always
+    networks:
+      - backend
+
   gateway-service:
     container_name: gateway-service
 #    image: gateway-service:latest
@@ -58,9 +69,27 @@ services:
       - auth-service
     restart: always
 
+  post-service:
+    container_name: post-service
+#    image: post-service:latest
+    build:
+      context: ./
+      dockerfile: ./post-service/Dockerfile
+    ports:
+      - "8093:8093"
+    env_file: ./post-service/.env
+    networks:
+      - backend
+    depends_on:
+      - mongo-db
+      - auth-service
+    restart: always
+
 volumes:
   data-mysql:
     name: data-mysql
+  mongo_data:
+    name: mongo-data
 
 networks:
   backend:

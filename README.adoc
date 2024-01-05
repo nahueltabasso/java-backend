@@ -24,8 +24,9 @@ scalable structure for the development of the platform.
 8. <<api-gateway-service, APIGATEWAY-SERVICE>>
 9. <<auth-service, AUTH_SERVICE>>
 10. <<user-service, USER_SERVICE>>
-11. <<licence, Licences>>
-12. <<contact, Contact>>
+11. <<post-service, POST_SERVICE>>
+12. <<licence, Licences>>
+13. <<contact, Contact>>
 
 [[purpose]]
 == PURPOSE OF THIS ARCHITECTURE
@@ -159,6 +160,11 @@ link:./auth-service/README.adoc[README].
 == USER-SERVICE
 This microservice is responsible for managing user profiles and user settings. For more details read this
 link:./user-service/README.adoc[README].
+
+[[post-service]]
+== POST-SERVICE
+This microservice is responsible for managing posts, comments and reactions. For more details read this
+link:./post-service/README.adoc[README]
 
 [[licence]]
 == LICENSE

@@ -51,3 +51,6 @@ detectFaceApi:
   api_key: ${DETECT_FACES_API_KEY:132dvdsq3f3ddg6j6}
 #  api_key: 132dvdsq3f3ddg6j6
 
+logging:
+  level:
+    feign: DEBUG
