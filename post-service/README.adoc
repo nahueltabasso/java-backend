@@ -16,6 +16,7 @@ This microservices was developed with Spring WebFlux with reactive programm and 
 == TECHNOLOGIES
 image:https://img.shields.io/badge/Java-ED8B00?style=for-the-badge&logo=openjdk&logoColor=white[]
 image:https://img.shields.io/badge/Spring-6DB33F?style=for-the-badge&logo=spring&logoColor=white[Spring Boot, title="Spring Boot", alt="Spring Boot"]
+image:https://img.shields.io/badge/Spring_Security-6DB33F?style=for-the-badge&logo=Spring-Security&logoColor=white[]
 image:https://img.shields.io/badge/MongoDB-4EA94B?style=for-the-badge&logo=mongodb&logoColor=white[]
 image:https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white[]
 image:https://img.shields.io/badge/IntelliJ_IDEA-000000.svg?style=for-the-badge&logo=intellij-idea&logoColor=white[]
@@ -25,6 +26,7 @@ image:https://img.shields.io/badge/Docker-✓-blue.svg[Docker, title="Docker", a
 
 * Java 18
 * Spring Framework 2.7.10
+* Spring Security
 * Maven 3.9.2
 * MongoDB
 * Cloudinary
