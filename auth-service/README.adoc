@@ -50,14 +50,18 @@ password policies, the prevention of brute force attacks, and the protection aga
 [[technologies]]
 == TECHNOLOGIES
 
-image:https://img.shields.io/badge/Java_18-✓-blue.svg[Java 18, title="Java 18", alt="Java 18"]
-image:https://img.shields.io/badge/Spring_Boot_2.7.10-✓-Green.svg[Spring Boot, title="Spring Boot", alt="Spring Boot"]
+image:https://img.shields.io/badge/Java-ED8B00?style=for-the-badge&logo=openjdk&logoColor=white[]
+image:https://img.shields.io/badge/Spring-6DB33F?style=for-the-badge&logo=spring&logoColor=white[Spring Boot, title="Spring Boot", alt="Spring Boot"]
+image:https://img.shields.io/badge/Spring_Security-6DB33F?style=for-the-badge&logo=Spring-Security&logoColor=white[]
+image:https://img.shields.io/badge/MySQL-00000F?style=for-the-badge&logo=mysql&logoColor=white[]
+image:https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white[]
+image:https://img.shields.io/badge/IntelliJ_IDEA-000000.svg?style=for-the-badge&logo=intellij-idea&logoColor=white[]
 image:https://img.shields.io/badge/maven-✓-blue.svg[Maven, title="Maven", alt="Maven"]
-image:https://img.shields.io/badge/MySQL_8-✓-Green.svg[MySQL, title="MySQL", alt="MySQL"]
 image:https://img.shields.io/badge/Docker-✓-blue.svg[Docker, title="Docker", alt="Docker"]
 
 * Java 18
 * Spring Framework 2.7.10
+* Spring Security
 * Maven 3.9.2
 * MySQL 8.0
 * Docker 20.10.21
