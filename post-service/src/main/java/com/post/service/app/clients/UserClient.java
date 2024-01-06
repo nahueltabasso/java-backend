@@ -1,5 +1,7 @@
 package com.post.service.app.clients;
 
+import com.post.service.app.exceptions.CustomException;
+import com.post.service.app.exceptions.ErrorCode;
 import com.post.service.app.models.dto.UserDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
@@ -29,7 +31,7 @@ public class UserClient {
                 .bodyToMono(UserDTO.class)
                 .doOnError(e -> {
                     e.printStackTrace();
-                    throw new RuntimeException(e);
+                    throw new CustomException(ErrorCode.USER_NOT_FOUND);
                 });
 
     }

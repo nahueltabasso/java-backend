@@ -1,5 +1,7 @@
 package com.post.service.app.clients;
 
+import com.post.service.app.exceptions.CustomException;
+import com.post.service.app.exceptions.ErrorCode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.core.env.Environment;
@@ -31,7 +33,7 @@ public class AuthClient {
                 .doOnError(e -> {
 //                    System.out.println(this.baseAuthUrl);
                     e.printStackTrace();
-                    throw new RuntimeException(e);
+                    throw new CustomException(ErrorCode.TOKEN_NOT_VALID);
                 });
     }
 

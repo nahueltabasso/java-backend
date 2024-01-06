@@ -1,6 +1,8 @@
 package com.post.service.app.services.impl;
 
 import com.post.service.app.clients.UserClient;
+import com.post.service.app.exceptions.CustomException;
+import com.post.service.app.exceptions.ErrorCode;
 import com.post.service.app.models.documents.Post;
 import com.post.service.app.models.dto.PostDTO;
 import com.post.service.app.models.dto.PostFilterDTO;
@@ -158,7 +160,8 @@ public class PostServiceImpl implements PostService {
     @Override
     public Mono<PostDTO> findById(String id) {
         log.info("Enter to findById()");
-        return this.postRepository.findById(id).map(this::entityToDto);
+        return this.postRepository.findById(id).map(this::entityToDto)
+                .doOnError(e -> new CustomException(ErrorCode.POST_NOT_FOUND));
     }
 
     @Override
@@ -177,7 +180,8 @@ public class PostServiceImpl implements PostService {
                 }
             }
             return p;
-        }).flatMap(p -> this.postRepository.deleteById(id)).then();
+        }).flatMap(p -> this.postRepository.deleteById(id)).then()
+                .doOnError(e -> new CustomException(ErrorCode.POST_NOT_FOUND));
     }
 
     @Override
