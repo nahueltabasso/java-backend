@@ -6,7 +6,7 @@ responsible for managing user profiles and related operations
 [horizontal]
 ++++
 <div style="display: flex; justify-content: center; align-items: center; width: 100%;">
-    <img src="src/main/resources/assets/user-service-rm.jpeg" alt="Imagen de salida" style="width: 600px;">
+    <img src="src/main/resources/assets/diagrama.jpeg" alt="Imagen de salida" style="width: 600px;">
 </div>
 ++++
 
