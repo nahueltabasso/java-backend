@@ -236,15 +236,27 @@ public class AuthServiceImpl extends CommonServiceImpl<UserDTO, User> implements
 
             // Generate a refresh token for response
             RefreshToken refreshToken = refreshTokenService.createRefreshToken(userDetails.getId());
-            return new LoginResponseDTO(
-                    userDetails.getId(),
-                    userDetails.getUsername(),
-                    userDetails.getEmail(),
-                    roles,
-                    accessToken,
-                    refreshToken.getToken(),
-                    "Bearer",
-                    LocalDateTime.now());
+
+            User user = userRepository.findById(userDetails.getId()).get();
+
+            LoginResponseDTO loginResponseDTO = LoginResponseDTO.builder()
+                    .id(userDetails.getId())
+                    .username(userDetails.getUsername())
+                    .email(userDetails.getEmail())
+                    .roles(roles)
+                    .accessToken(accessToken)
+                    .refreshToken(refreshToken.getToken())
+                    .type("Bearer")
+                    .currentDateTime(LocalDateTime.now())
+                    .firstLogin(user.getFirstLogin()).build();
+
+            // Update firstLogin property
+            if (user.getFirstLogin().equals(Boolean.TRUE)) {
+                user.setFirstLogin(Boolean.FALSE);
+                userRepository.save(user);
+            }
+
+            return loginResponseDTO;
         } catch (Exception e) {
             log.error(e.getMessage());
             e.printStackTrace();
