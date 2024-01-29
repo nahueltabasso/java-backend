@@ -39,15 +39,39 @@ public class UserProfileController extends CommonController<UserProfileFilterDTO
         return "oK";
     }
 
+//    @PreAuthorize("hasRole('ROLE_USER')")
+//    @PostMapping("/add")
+//    public ResponseEntity<?> addProfile(@Validated @RequestPart("jsonBody") UserProfileDTO userProfileDTO,
+//                                        BindingResult bindingResult, @RequestPart("profilePhoto") MultipartFile file) {
+//        log.info("Enter to addProfile");
+//
+//        if (bindingResult.hasErrors()) {
+//            return this.validateBody(bindingResult);
+//        }
+//        if (file.isEmpty()) {
+//            throw new CommonBusinessException(ErrorCode.FILE_NOT_NULL);
+//        }
+//
+//        // Valid if the file is a valid image such as a profile photo picture
+//        userProfileService.validFaceInProfilePotho(file);
+//
+//        log.info("Passes body request validations");
+//        log.info("Content-Type of request -> " + file.getContentType());
+//        log.info("Filename -> " + file.getOriginalFilename());
+//
+//        return ResponseEntity.status(HttpStatus.CREATED)
+//                .body(userProfileService.saveNewProfile(userProfileDTO, file));
+//    }
+
     @PreAuthorize("hasRole('ROLE_USER')")
     @PostMapping("/add")
-    public ResponseEntity<?> addProfile(@Validated @RequestPart("jsonBody") UserProfileDTO userProfileDTO,
-                                        BindingResult bindingResult, @RequestPart("profilePhoto") MultipartFile file) {
+    public ResponseEntity<?> addProfile(@Validated UserProfileDTO userProfileDTO, BindingResult bindingResult,
+                                        @RequestParam("file") MultipartFile file) {
         log.info("Enter to addProfile");
-
         if (bindingResult.hasErrors()) {
             return this.validateBody(bindingResult);
         }
+
         if (file.isEmpty()) {
             throw new CommonBusinessException(ErrorCode.FILE_NOT_NULL);
         }
@@ -62,6 +86,7 @@ public class UserProfileController extends CommonController<UserProfileFilterDTO
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(userProfileService.saveNewProfile(userProfileDTO, file));
     }
+
 
     @PreAuthorize("hasRole('ROLE_USER')")
     @PutMapping("/update-profile/{id}")
