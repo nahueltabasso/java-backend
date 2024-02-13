@@ -64,8 +64,8 @@ public class LocationServiceImpl extends CommonServiceImpl<LocationDTO, Location
     @Override
     protected LocationDTO entityToDto(Location entity) {
         log.info("Enter to entityToDto()");
-        UserProfileDTO userProfileDTO = new UserProfileDTO();
-        BeanUtils.copyProperties(entity.getUserProfile(), userProfileDTO);
+        UserProfileDTO userProfileDTO = this.userProfileService.findById(entity.getUserProfile().getId());
+//        BeanUtils.copyProperties(entity.getUserProfile(), userProfileDTO);
 
         LocationDTO dto = LocationDTO.builder()
                 .city(entity.getCity())
