@@ -66,4 +66,10 @@ create table user_locations
         foreign key (user_profile_id) references user_users_profiles (id)
 );
 
+-- SRID
+ALTER TABLE user_locations
+MODIFY coordinate POINT SRID 4326;
+
+-- INDEX
+CREATE SPATIAL INDEX idx_coordinate ON user_locations(coordinate);
 
