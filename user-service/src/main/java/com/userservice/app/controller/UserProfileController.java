@@ -89,4 +89,12 @@ public class UserProfileController extends CommonController<UserProfileFilterDTO
         return ResponseEntity.ok().build();
     }
 
+    @PreAuthorize("hasRole('ROLE_USER')")
+    @GetMapping("/suggest-possible-friends/{id}")
+    public ResponseEntity<?> getSuggestionsPossiblesNewFriends(@PathVariable Long id) {
+        log.info("Enter to getSuggestionsPossiblesNewFriends()");
+        return ResponseEntity.ok()
+                .body(this.userProfileService.getPossibleNewFriends(id));
+    }
+
 }
