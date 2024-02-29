@@ -18,17 +18,21 @@ import nrt.common.microservice.security.dto.CommonUserDetails;
 import nrt.common.microservice.security.session.AppSessionUser;
 import nrt.common.microservice.helpers.FileHelper;
 import nrt.common.microservice.services.impl.CommonServiceImpl;
+import nrt.common.microservice.utils.ListUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.core.env.Environment;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @Service
 @Slf4j
@@ -230,6 +234,22 @@ public class UserProfileServiceImpl extends CommonServiceImpl<UserProfileDTO, Us
         if (responseDTO.getNumberOfDetectedFaces() > 1) {
             throw new CommonBusinessException(ErrorCode.PROFILE_PHOTO_DETECT_MANY_FACES);
         }
+    }
+
+    @Override
+    public List<UserProfileDTO> getPossibleNewFriends(Long userProfileId) {
+        log.info("Enter to getPossibleNewFriends()");
+        List<UserProfile> userProfileList = this.userProfileRepository.findNearestUserProfilesByUserProfileId(userProfileId);
+
+        // Validate if there is any nearby user to suggest as a friend
+        if (ListUtils.isNullOrEmpty(userProfileList)) {
+            // There aren't nearby users so suggest 10 random users
+            userProfileList = this.userProfileRepository.findFirstTenUserProfiles(userProfileId, PageRequest.of(0, 10));
+        }
+
+        return userProfileList.stream()
+                .map(up -> this.entityToDto(up))
+                .collect(Collectors.toList());
     }
 
     private String saveInCloudinary(MultipartFile multipartFile) {

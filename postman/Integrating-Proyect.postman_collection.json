@@ -81,6 +81,44 @@
 					"response": []
 				},
 				{
+					"name": "Validate",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "jfdskfjsdkfdsf",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"auth3\",\n    \"password\": \"PAa1234567\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8090/api/security/auth/sign-in",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8090",
+							"path": [
+								"api",
+								"security",
+								"auth",
+								"sign-in"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "GoogleLogin",
 					"request": {
 						"method": "POST",
@@ -343,6 +381,39 @@
 					"response": []
 				},
 				{
+					"name": "GetPossiblesNewFriends",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJ1c2VyRW5hYmxlZCI6dHJ1ZSwiaWQiOjE5LCJleHAiOjE3MDkxNjg4NjcsImlhdCI6MTcwOTE2NTI2NywiZW1haWwiOiJuYWh1ZWx0YWJhc3NvQGdtYWlsLmNvbSIsImF1dGhvcml0aWVzIjpbIlJPTEVfVVNFUiJdLCJ1c2VybmFtZSI6Im5haHVlbC50YWJhc3NvIn0.D4JCIYyQQ19OLMYqPLmwBOv56baPVa9DChKcgX0o5I8TnNwQA1Cb2uCacYV-_QDalYlUKmC4YPak391fPm7DRw",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8090/api/users/user-profile/suggest-possible-friends/157",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8090",
+							"path": [
+								"api",
+								"users",
+								"user-profile",
+								"suggest-possible-friends",
+								"157"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "GetProfileById",
 					"request": {
 						"auth": {
@@ -584,7 +655,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzUxMiJ9.eyJ1c2VyRW5hYmxlZCI6dHJ1ZSwiaWQiOjE2LCJleHAiOjE3MDY0ODk3MzUsImlhdCI6MTcwNjQ4NjEzNSwiZW1haWwiOiJhdXRoM0BnbWFpbC5jb20iLCJhdXRob3JpdGllcyI6WyJST0xFX1VTRVIiXSwidXNlcm5hbWUiOiJhdXRoMyJ9.221rA9zNKlZxHlyyv8fTmz_Dav9P_q_b5EypWZbDW4G2Dr4Kf68f6jNcseDHCxx_LdBsMuCG3G784nMBkeCVXA",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJ1c2VyRW5hYmxlZCI6dHJ1ZSwiaWQiOjE3LCJleHAiOjE3MDg4OTg3OTEsImlhdCI6MTcwODg5NTE5MSwiZW1haWwiOiJhdXRoNEBnbWFpbC5jb20iLCJhdXRob3JpdGllcyI6WyJST0xFX1VTRVIiXSwidXNlcm5hbWUiOiJhdXRoNCJ9.tvmBRBkUa3BgGAofgRxcebyIPGsJoM0qRED_GP04Dgc30btjlp0rpOoLvRZxXoeL1ytdrIkvQ3t7Xl8QGjFJUg",
 									"type": "string"
 								}
 							]
@@ -597,46 +668,46 @@
 								{
 									"key": "file",
 									"type": "file",
-									"src": "/Users/nahueltabasso/Documents/IMG_0343.jpeg"
+									"src": "/Users/nahueltabasso/Documents/Imagenes de dato/descarga.jpeg"
 								},
 								{
 									"key": "firstName",
-									"value": "Pablo",
+									"value": "Luis",
 									"type": "default"
 								},
 								{
 									"key": "lastName",
-									"value": "Rodriguez",
+									"value": "Figo",
 									"type": "default"
 								},
 								{
 									"key": "email",
-									"value": "pabloRodriquez@gmail.com",
+									"value": "auth4@gmail.com",
 									"type": "default"
 								},
 								{
 									"key": "phoneNumber",
-									"value": "3242342",
+									"value": "532523",
 									"type": "default"
 								},
 								{
 									"key": "personalStatus",
-									"value": "soltero",
+									"value": "Casado/a",
 									"type": "default"
 								},
 								{
 									"key": "birthDate",
-									"value": "2024-01-23 00:00:00.000",
+									"value": "1987-06-25 00:00:00.000",
 									"type": "default"
 								},
 								{
 									"key": "studies",
-									"value": "sefgdsgs",
+									"value": "Futbolista",
 									"type": "default"
 								},
 								{
 									"key": "userId",
-									"value": "12",
+									"value": "17",
 									"type": "default"
 								},
 								{
@@ -658,6 +729,46 @@
 								"users",
 								"user-profile",
 								"add"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "LocationAdd",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJ1c2VyRW5hYmxlZCI6dHJ1ZSwiaWQiOjE3LCJleHAiOjE3MDg4OTg3OTEsImlhdCI6MTcwODg5NTE5MSwiZW1haWwiOiJhdXRoNEBnbWFpbC5jb20iLCJhdXRob3JpdGllcyI6WyJST0xFX1VTRVIiXSwidXNlcm5hbWUiOiJhdXRoNCJ9.tvmBRBkUa3BgGAofgRxcebyIPGsJoM0qRED_GP04Dgc30btjlp0rpOoLvRZxXoeL1ytdrIkvQ3t7Xl8QGjFJUg",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"city\": \"Lisboa\",\n    \"state\": \"Lisboa\",\n    \"country\": \"Portugal\",\n    \"postalCode\": \"54353\",\n    \"address\": \"Ribiero 1215\",\n    \"latitude\": 38.72699307384011,\n    \"longitude\": -9.145511925286737,          \n    \"userProfileDTO\": {\n        \"id\": 20,\n        \"firstName\": \"Luis\",\n        \"lastName\": \"Figo\",\n        \"email\": \"auth4@gmail.com\",\n        \"phoneNumber\": \"532523\",\n        \"profilePhoto\": \"https://res.cloudinary.com/dh7lbjmde/image/upload/c_fill,g_face,h_400,r_max,w_400/cejl6deayczima6hymas.jpg\",\n        \"birthDate\": \"1987-06-25 00:00:00.000\",\n        \"verifiedProfile\": false,\n        \"personalStatus\": \"Casado/a\",\n        \"studies\": \"Futbolista\",\n        \"biography\": null,\n        \"userId\": 17,\n        \"activeProfile\": null\n    }\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8090/api/users/location",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8090",
+							"path": [
+								"api",
+								"users",
+								"location"
 							]
 						}
 					},
