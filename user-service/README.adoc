@@ -119,7 +119,7 @@ docker run -p 8092:8092 --rm -d --env-file ./user-service/.env --name user-servi
 
 ^|Get near Users Profiles
 ^|GET
-^|/api/users/user-profile/get-near-users
+^|/api/users/user-profile/suggest-possible-friends/{id}
 ^|Return a list of near users by logged user to possibles friend requests
 
 ^|Add Location
