@@ -1,11 +1,13 @@
 package com.userservice.app.models.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import nrt.common.microservice.models.dto.CommonDTO;
+import nrt.common.microservice.utils.LocalDateDeserializer;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.Column;
@@ -31,7 +33,8 @@ public class UserProfileDTO extends CommonDTO {
     private String profilePhoto;
     @NotNull
 //    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss.SSS")
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss.SSS")
+//    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss.SSS")
+    @JsonDeserialize(using = LocalDateDeserializer.class)
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss.SSS")
     private LocalDateTime birthDate;
     @NotNull
