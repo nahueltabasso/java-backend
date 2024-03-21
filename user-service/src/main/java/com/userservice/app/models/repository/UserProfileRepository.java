@@ -26,4 +26,6 @@ public interface UserProfileRepository extends CommonEntityRepository<UserProfil
 
     @Query("SELECT up FROM UserProfile up WHERE up.id <> ?1")
     public List<UserProfile> findFirstTenUserProfiles(Long id, Pageable pageable);
+
+    public UserProfile findByUserId(Long userId);
 }
