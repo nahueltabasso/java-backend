@@ -16,5 +16,6 @@ public interface UserProfileService extends CommonService<UserProfileDTO> {
     public void disabledUserProfile(Long id);
     public void validFaceInProfilePotho(MultipartFile file);
     public List<UserProfileDTO> getPossibleNewFriends(Long userProfileId);
+    public UserProfileDTO obtainLoggedUserProfile();
 
 }

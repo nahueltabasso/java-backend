@@ -33,13 +33,6 @@ public class UserProfileController extends CommonController<UserProfileFilterDTO
     }
 
     @PreAuthorize("hasRole('ROLE_USER')")
-    @GetMapping("/message-ok")
-    public String getMessage(@RequestHeader("Authorization") String token){
-        CommonUserDetails commonUserDetails = AppSessionUser.getCurrentAppUser();
-        return "oK";
-    }
-
-    @PreAuthorize("hasRole('ROLE_USER')")
     @PostMapping("/add")
     public ResponseEntity<?> addProfile(@Validated @RequestPart("jsonBody") UserProfileDTO userProfileDTO,
                                         BindingResult bindingResult, @RequestPart("profilePhoto") MultipartFile file) {
@@ -97,4 +90,12 @@ public class UserProfileController extends CommonController<UserProfileFilterDTO
                 .body(this.userProfileService.getPossibleNewFriends(id));
     }
 
+
+    @PreAuthorize("hasRole('ROLE_USER')")
+    @GetMapping("/get-logged-user-profile")
+    public ResponseEntity<?> getLoggedUserProfile() {
+        log.info("Enter to getLoggedUserProfile()");
+        return ResponseEntity.ok()
+                .body("");
+    }
 }

@@ -252,6 +252,14 @@ public class UserProfileServiceImpl extends CommonServiceImpl<UserProfileDTO, Us
                 .collect(Collectors.toList());
     }
 
+    @Override
+    public UserProfileDTO obtainLoggedUserProfile() {
+        log.info("Enter to obtainLoggedUserProfile()");
+        CommonUserDetails loggedUser = AppSessionUser.getCurrentAppUser();
+        UserProfile userProfile = this.userProfileRepository.findByUserId(loggedUser.getId());
+        return this.entityToDto(userProfile);
+    }
+
     private String saveInCloudinary(MultipartFile multipartFile) {
         File file = fileHelper.convert(multipartFile);
         String imageUrl = cloudinaryHelper.uploadImage(file);
